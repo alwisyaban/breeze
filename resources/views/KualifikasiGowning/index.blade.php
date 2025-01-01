@@ -6,10 +6,10 @@
         <div class="card mb-4">
             <div class="card-header">
                 <h2>Data Kualifikasi Gowning</h2>
-                {{-- @if (auth()->user()->name == 'QC' || auth()->user()->name == 'admin')
-                @endif --}}
-                <a href="{{ route('kualifikasiGowning.create') }}" class="btn btn-success"><i class="fa-solid fa-plus"></i>
-                    Kualifikasi Gowning</a>
+                @if (Auth::user()->name == 'QC' || Auth::user()->name == 'admin')
+                    <a href="{{ route('kualifikasiGowning.create') }}" class="btn btn-success"><i class="fa-solid fa-plus"></i>
+                        Kualifikasi Gowning</a>
+                @endif
             </div>
             <div class="card-body">
                 <!-- id ke datatables -->
@@ -51,18 +51,19 @@
                                 <td>{{ $item->hasil }}</td>
                                 <td>{{ Carbon\Carbon::parse($item->tanggal_rekualifikasi)->format('d M Y') }}</td>
                                 <td>
-                                    {{-- @if (auth()->user()->name == 'admin' || auth()->user()->name == 'QC')
-                                    @endif --}}
-                                    <a href="{{ route('kualifikasiGowning.edit', $item->id_kualifikasiGowning) }}"
-                                        class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <form action="{{ route('kualifikasiGowning.destroy', $item->id_kualifikasiGowning) }}"
-                                        method="post" class="d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        <button class="btn btn-danger btn-sm ml-2"
-                                            onclick="return confirm('Ingin Menghapus Data ?')"><i
-                                                class="fa-solid fa-trash"></i></button>
-                                    </form>
+                                    @if (Auth::user()->name == 'admin' || Auth::user()->name == 'QC')
+                                        <a href="{{ route('kualifikasiGowning.edit', $item->id_kualifikasiGowning) }}"
+                                            class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <form
+                                            action="{{ route('kualifikasiGowning.destroy', $item->id_kualifikasiGowning) }}"
+                                            method="post" class="d-inline">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-danger btn-sm ml-2"
+                                                onclick="return confirm('Ingin Menghapus Data ?')"><i
+                                                    class="fa-solid fa-trash"></i></button>
+                                        </form>
+                                    @endif
                                 </td>
                                 <td>{{ $item->dahi }}</td>
                                 <td>{{ $item->muka_ka }}</td>
