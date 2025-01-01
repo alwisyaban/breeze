@@ -18,10 +18,10 @@
                 <select name="jenis_kualifikasi" id="jenis_kualifikasi"
                     class="form-control @error('jenis_kualifikasi') is-invalid @enderror" required>
                     <option value="">-- Pilih Type --</option>
-                    <option value="initial-1">initial-1</option>
-                    <option value="initial-2">initial-2</option>
-                    <option value="rekualifikasi">rekualifikasi</option>
-                    <option value="aseptis">aseptis</option>
+                    <option value="initial-1">Initial-1</option>
+                    <option value="initial-2">Initial-2</option>
+                    <option value="rekualifikasi">Initial-3 / Rekualifikasi</option>
+                    <option value="aseptis">Aseptis</option>
                 </select>
                 <span class="text-danger">{{ $errors->first('jenis_kualifikasi') }}</span>
             </div>
