@@ -9,11 +9,11 @@
             <div class="form-group mt-3">
                 <label for="nik">NIK Karyawan</label>
                 <input type="text" name="nik" id="nik" class="form-control" value="{{ $kualifikasiGowning->nik }}"
-                    disabled>
+                    readonly>
             </div>
             <div class="form-group mt-3">
                 <label for="jenis_kualifikasi">Jenis Kualifikasi</label>
-                <select name="jenis_kualifikasi" id="jenis_kualifikasi" class="form-control" disabled>
+                <select name="jenis_kualifikasi" id="jenis_kualifikasi" class="form-control">
                     <option value="initial-1" {{ $kualifikasiGowning->jenis_kualifikasi == 'initial-1' ? 'selected' : '' }}>
                         initial-1</option>
                     <option value="initial-2" {{ $kualifikasiGowning->jenis_kualifikasi == 'initial-2' ? 'selected' : '' }}>
