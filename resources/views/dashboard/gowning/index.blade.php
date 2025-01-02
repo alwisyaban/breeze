@@ -110,7 +110,7 @@
                                 <td>
                                     {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->tanggal_rekualifikasi
                                         ? \Carbon\Carbon::parse(
-                                            optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->tanggal_rekualifikasi,
+                                            optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->tanggal_rekualifikasi,
                                         )->format('d M Y')
                                         : 'NOT QUALIFIED' }}
                                 </td>
