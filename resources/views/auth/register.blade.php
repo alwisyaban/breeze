@@ -26,9 +26,13 @@
                 <!-- Password -->
                 <div class="mt-4">
                     <x-input-label for="password" :value="__('Password')" />
-
-                    <x-text-input id="password" class="form-control" type="password" name="password" required
-                        autocomplete="new-password" />
+                    <div class="input-group">
+                        <x-text-input id="password" class="form-control" type="password" name="password" required
+                            autocomplete="new-password" />
+                        <button type="button" class="btn btn-outline-secondary toggle-password">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                    </div>
 
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                 </div>
@@ -36,9 +40,13 @@
                 <!-- Confirm Password -->
                 <div class="mt-4">
                     <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                    <x-text-input id="password_confirmation" class="form-control" type="password"
-                        name="password_confirmation" required autocomplete="new-password" />
+                    <div class="input-group">
+                        <x-text-input id="password_confirmation" class="form-control" type="password"
+                            name="password_confirmation" required autocomplete="new-password" />
+                        <button type="button" class="btn btn-outline-secondary toggle-password">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                    </div>
 
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>

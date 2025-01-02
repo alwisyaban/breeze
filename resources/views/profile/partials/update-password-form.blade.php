@@ -53,7 +53,7 @@
     </div>
 
 
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             const togglePasswordButtons = document.querySelectorAll('.toggle-password');
 
@@ -74,6 +74,6 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 
 </section>
