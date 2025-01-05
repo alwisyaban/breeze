@@ -117,7 +117,11 @@
                     <td>{{ $karyawan->name }}</td>
                     <td>{{ $karyawan->departemen }}</td>
                     <td>
-                        {{ $rekualifikasiDate ? $date->format('d M Y') : 'NOT QUALIFIED' }}
+                        {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->tanggal_rekualifikasi
+                            ? \Carbon\Carbon::parse(
+                                optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->tanggal_rekualifikasi,
+                            )->format('d M Y')
+                            : 'NOT QUALIFIED' }}
                     </td>
                     <td>{{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->hasil ?? 'NOT QUALIFIED' }}
                     </td>

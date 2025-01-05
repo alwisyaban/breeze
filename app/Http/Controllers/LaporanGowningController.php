@@ -31,6 +31,7 @@ class LaporanGowningController extends Controller
                 $query->whereIn('departemen', $selectedDepartments); // Filter berdasarkan departemen
             })
             ->orderBy('departemen', 'asc')
+            ->orderBy('name', 'asc')
             ->get();
 
         // Ambil daftar departemen untuk dropdown filter
@@ -66,6 +67,7 @@ class LaporanGowningController extends Controller
                 $query->whereIn('departemen', $selectedDepartments);
             })
             ->orderBy('departemen', 'asc')
+            ->orderBy('name', 'asc')
             ->get();
 
 
@@ -82,11 +84,11 @@ class LaporanGowningController extends Controller
         // Posisi teks pada kanan bawah
         $page_width = $canvas->get_width(); // Lebar halaman
         $text_width = 100; // Perkiraan panjang teks (sesuaikan jika teks lebih panjang)
-        $x_position = $page_width - $text_width - 10; // 10 adalah padding dari tepi kanan
+        $x_position = $page_width - $text_width - 0; // 10 adalah padding dari tepi kanan
         $y_position = $canvas->get_height() - 40; // 20 adalah padding dari tepi bawah
 
         // Tambahkan teks nomor halaman
-        $canvas->page_text($x_position, $y_position, "Halaman {PAGE_NUM} dari {PAGE_COUNT}", null, 10, [0, 0, 0]);
+        $canvas->page_text($x_position, $y_position, "page {PAGE_NUM} of {PAGE_COUNT}", null, 10, [0, 0, 0]);
 
         // Set ukuran kertas dan orientasi
         $pdf->setPaper('A4', 'portrait');
