@@ -14,8 +14,10 @@ class KualifikasiTeoriController extends Controller
     public function index()
     {
         $kualifikasiTeori = KualifikasiTeori::with('karyawan')
-            ->orderBy('departemen', 'asc')
-            ->orderBy('name', 'asc')
+            ->join('karyawans', 'kualifikasi_teoris.nik', '=', 'karyawans.nik')
+            ->orderBy('karyawans.departemen') // Urutkan berdasarkan departemen
+            ->orderBy('karyawans.name') // Lalu urutkan berdasarkan name
+            ->select('kualifikasi_teoris.*') // Pilih kolom dari kualifikasi_gownings
             ->get();
         return view('kualfikasiTeori.index', compact('kualifikasiTeori'));
     }
