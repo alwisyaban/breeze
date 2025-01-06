@@ -90,9 +90,9 @@
                 <th style="width:20%">Name</th>
                 <th>Department</th>
                 <th style="width: 12%">Sterile Re-qualification Date</th>
-                <th>Sterile Qualification Status</th>
+                <th>Sterile Qualification Status*</th>
                 <th style="width: 13%">Aseptic Re-qualification Date</th>
-                <th>Aseptic Qualification Status</th>
+                <th>Aseptic Qualification Status*</th>
                 <th>Qualified for Grade</th>
             </tr>
             </tr>
@@ -126,7 +126,7 @@
                     <td>{{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->hasil ?? 'NOT QUALIFIED' }}
                     </td>
                     <td>
-                        {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->tanggal_rekualifikasi ?? 'NOT QUALIFIED' }}
+                        {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->tanggal_rekualifikasi ?? 'NA' }}
                     </td>
                     <td>
                         {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->hasil ?? 'NOT QUALIFIED' }}

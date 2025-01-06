@@ -40,7 +40,7 @@ class LaporanGowningController extends Controller
                         $kualifikasi->jenis_kualifikasi === 'aseptis' &&
                         Carbon::parse($kualifikasi->tanggal_rekualifikasi)->lt(Carbon::today())
                     ) {
-                        $kualifikasi->tanggal_rekualifikasi = 'NOT QUALIFIED';
+                        $kualifikasi->tanggal_rekualifikasi = 'NA';
                         $kualifikasi->hasil = 'NOT QUALIFIED';
                     } else {
                         // Format tanggal menjadi 29 Jan 2025
@@ -93,7 +93,7 @@ class LaporanGowningController extends Controller
                         $kualifikasi->jenis_kualifikasi === 'aseptis' &&
                         Carbon::parse($kualifikasi->tanggal_rekualifikasi)->lt(Carbon::today())
                     ) {
-                        $kualifikasi->tanggal_rekualifikasi = 'NOT QUALIFIED';
+                        $kualifikasi->tanggal_rekualifikasi = 'NA';
                         $kualifikasi->hasil = 'NOT QUALIFIED';
                     } else {
                         // Format tanggal menjadi 29 Jan 2025
