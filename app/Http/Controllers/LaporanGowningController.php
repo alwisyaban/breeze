@@ -113,7 +113,7 @@ class LaporanGowningController extends Controller
 
         $canvas = $domPdf->get_canvas();
         // $canvas->page_text(10, 10, "Halaman {PAGE_NUM} dari {PAGE_COUNT}", null, 10, [0, 0, 0]); // atas kiri
-        $canvas->page_text(35, $canvas->get_height() - 40, "SOP-QA-Q004.07L05", null, 10, [0, 0, 0]); // kiri bawah
+        $canvas->page_text(35, $canvas->get_height() - 40, "SOP-QA-Q004.08L05", null, 10, [0, 0, 0]); // kiri bawah
 
         // Posisi teks pada kanan bawah
         $page_width = $canvas->get_width(); // Lebar halaman
