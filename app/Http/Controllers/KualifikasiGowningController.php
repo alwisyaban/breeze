@@ -19,7 +19,7 @@ class KualifikasiGowningController extends Controller
         $kualifikasiGowning = KualifikasiGowning::with('karyawan')
             ->join('karyawans', 'kualifikasi_gownings.nik', '=', 'karyawans.nik') // Gabungkan tabel karyawan
             ->orderBy('karyawans.departemen') // Urutkan berdasarkan departemen
-            ->orderBy('karyawans.nik') // Lalu urutkan berdasarkan NIK
+            ->orderBy('karyawans.name') // Lalu urutkan berdasarkan name
             ->select('kualifikasi_gownings.*') // Pilih kolom dari kualifikasi_gownings
             ->get();
 

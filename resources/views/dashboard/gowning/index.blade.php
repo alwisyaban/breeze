@@ -84,7 +84,7 @@
                             <th>Hasil</th>
                         </tr>
                     </thead>
-                    <tbody class="text-center">
+                    {{-- <tbody class="text-center">
                         @forelse ($data as $karyawan)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -123,6 +123,42 @@
                         @empty
                             <tr>
                                 <td colspan="9" class="text-center">Tidak ada data yang sesuai filter.</td>
+                            </tr>
+                        @endforelse
+                    </tbody> --}}
+                    <tbody class="text-center">
+                        @forelse ($data as $karyawan)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $karyawan->nik }}</td>
+                                <td>{{ $karyawan->name }}</td>
+                                <td>{{ $karyawan->departemen }}</td>
+                                <td>
+                                    {{ $karyawan->kualifikasiTeori->tanggal_rekualifikasi
+                                        ? \Carbon\Carbon::parse($karyawan->kualifikasiTeori->tanggal_rekualifikasi)->format('d M Y')
+                                        : 'NOT QUALIFIED' }}
+                                </td>
+                                <td>{{ $karyawan->kualifikasiTeori->hasil ?? 'NOT QUALIFIED' }}</td>
+                                <td>
+                                    {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->tanggal_rekualifikasi
+                                        ? \Carbon\Carbon::parse(
+                                            optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->tanggal_rekualifikasi,
+                                        )->format('d M Y')
+                                        : 'NOT QUALIFIED' }}
+                                </td>
+                                <td>
+                                    {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->hasil ?? 'NOT QUALIFIED' }}
+                                </td>
+                                <td>
+                                    {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->tanggal_rekualifikasi ?? 'NOT QUALIFIED' }}
+                                </td>
+                                <td>
+                                    {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->hasil ?? 'NOT QUALIFIED' }}
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="10" class="text-center">Tidak ada data yang sesuai filter.</td>
                             </tr>
                         @endforelse
                     </tbody>

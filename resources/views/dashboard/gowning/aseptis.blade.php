@@ -14,7 +14,6 @@
                             <th>Initial</th>
                             <th>Departemen</th>
                             <th>Tanggal Kualifikasi</th>
-                            <th>Nilai</th>
                             <th>Hasil</th>
                             <th>Tanggal Rekualifikasi</th>
                         </tr>
@@ -28,7 +27,6 @@
                                 <td>{{ $item->karyawan->initial }}</td>
                                 <td>{{ $item->karyawan->departemen }}</td>
                                 <td>{{ Carbon\Carbon::parse($item->tanggal_kualifikasi)->format('d M Y') }}</td>
-                                <td>{{ $item->nilai }}</td>
                                 <td>{{ $item->hasil }}</td>
                                 <td>{{ Carbon\Carbon::parse($item->tanggal_rekualifikasi)->format('d M Y') }}</td>
                             </tr>

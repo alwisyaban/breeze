@@ -12,19 +12,19 @@
         }
 
         table {
-            width: 80%;
+            width: 100%;
             border-collapse: collapse;
             margin: 10px 0;
         }
 
         td {
             border: 1px solid;
-            padding: 8px;
+            padding: 2px;
             text-align: center;
         }
 
         th {
-            background-color: #f4f4f4;
+            background-color: white;
         }
 
         .highlight {
@@ -126,13 +126,10 @@
                     <td>{{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->hasil ?? 'NOT QUALIFIED' }}
                     </td>
                     <td>
-                        {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->tanggal_rekualifikasi
-                            ? \Carbon\Carbon::parse(
-                                optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->tanggal_rekualifikasi,
-                            )->format('d M Y')
-                            : 'NOT QUALIFIED' }}
+                        {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->tanggal_rekualifikasi ?? 'NOT QUALIFIED' }}
                     </td>
-                    <td>{{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->hasil ?? 'NOT QUALIFIED' }}
+                    <td>
+                        {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->hasil ?? 'NOT QUALIFIED' }}
                     </td>
                     <td>GRADE B & C</td>
                 </tr>

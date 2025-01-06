@@ -13,7 +13,10 @@ class KualifikasiTeoriController extends Controller
      */
     public function index()
     {
-        $kualifikasiTeori = KualifikasiTeori::with('karyawan')->get();
+        $kualifikasiTeori = KualifikasiTeori::with('karyawan')
+            ->orderBy('departemen', 'asc')
+            ->orderBy('name', 'asc')
+            ->get();
         return view('kualfikasiTeori.index', compact('kualifikasiTeori'));
     }
 

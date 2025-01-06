@@ -32,7 +32,24 @@ class LaporanGowningController extends Controller
             })
             ->orderBy('departemen', 'asc')
             ->orderBy('name', 'asc')
-            ->get();
+            ->get()
+            ->map(function ($karyawan) {
+                // Modifikasi data untuk jenis_kualifikasi 'aseptis'
+                $karyawan->kualifikasiGowning->map(function ($kualifikasi) {
+                    if (
+                        $kualifikasi->jenis_kualifikasi === 'aseptis' &&
+                        Carbon::parse($kualifikasi->tanggal_rekualifikasi)->lt(Carbon::today())
+                    ) {
+                        $kualifikasi->tanggal_rekualifikasi = 'NOT QUALIFIED';
+                        $kualifikasi->hasil = 'NOT QUALIFIED';
+                    } else {
+                        // Format tanggal menjadi 29 Jan 2025
+                        $kualifikasi->tanggal_rekualifikasi = Carbon::parse($kualifikasi->tanggal_rekualifikasi)->format('d M Y');
+                    }
+                    return $kualifikasi;
+                });
+                return $karyawan;
+            });
 
         // Ambil daftar departemen untuk dropdown filter
         $departments = Karyawan::select('departemen')
@@ -68,7 +85,24 @@ class LaporanGowningController extends Controller
             })
             ->orderBy('departemen', 'asc')
             ->orderBy('name', 'asc')
-            ->get();
+            ->get()
+            ->map(function ($karyawan) {
+                // Modifikasi data untuk jenis_kualifikasi 'aseptis'
+                $karyawan->kualifikasiGowning->map(function ($kualifikasi) {
+                    if (
+                        $kualifikasi->jenis_kualifikasi === 'aseptis' &&
+                        Carbon::parse($kualifikasi->tanggal_rekualifikasi)->lt(Carbon::today())
+                    ) {
+                        $kualifikasi->tanggal_rekualifikasi = 'NOT QUALIFIED';
+                        $kualifikasi->hasil = 'NOT QUALIFIED';
+                    } else {
+                        // Format tanggal menjadi 29 Jan 2025
+                        $kualifikasi->tanggal_rekualifikasi = Carbon::parse($kualifikasi->tanggal_rekualifikasi)->format('d M Y');
+                    }
+                    return $kualifikasi;
+                });
+                return $karyawan;
+            });
 
 
 
@@ -84,7 +118,7 @@ class LaporanGowningController extends Controller
         // Posisi teks pada kanan bawah
         $page_width = $canvas->get_width(); // Lebar halaman
         $text_width = 100; // Perkiraan panjang teks (sesuaikan jika teks lebih panjang)
-        $x_position = $page_width - $text_width - 0; // 10 adalah padding dari tepi kanan
+        $x_position = $page_width - $text_width - -10; // 10 adalah padding dari tepi kanan
         $y_position = $canvas->get_height() - 40; // 20 adalah padding dari tepi bawah
 
         // Tambahkan teks nomor halaman
