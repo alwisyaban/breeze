@@ -66,7 +66,7 @@
 
         <!-- Table Data -->
         <div class="table-responsive">
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped text-center">
                 <thead class="table-dark">
                     <tr>
                         <th>No</th>
@@ -104,7 +104,7 @@
                             <td>{{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->hasil ?? 'NOT QUALIFIED' }}
                             </td>
                             <td>
-                                {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->tanggal_rekualifikasi ?? 'NOT QUALIFIED' }}
+                                {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->tanggal_rekualifikasi ?? 'NA' }}
                             </td>
                             <td>
                                 {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->hasil ?? 'NOT QUALIFIED' }}
