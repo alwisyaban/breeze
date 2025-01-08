@@ -132,6 +132,10 @@ class DashboardGowningController extends Controller
 
         $kualifikasiTeori = KualifikasiTeori::where('hasil', 'QUALIFIED')
             ->whereBetween('tanggal_rekualifikasi', [$startDate, $endDate])
+            ->join('karyawans', 'kualifikasi_teoris.nik', '=', 'karyawans.nik') // Gabungkan tabel karyawan
+            ->orderBy('karyawans.departemen') // Urutkan berdasarkan departemen
+            ->orderBy('karyawans.name') // Lalu urutkan berdasarkan name
+            ->select('kualifikasi_teoris.*') // Pilih kolom dari kualifikasi_gownings
             ->get();
 
         return view('dashboard.gowning.teori', compact('kualifikasiTeori'));
@@ -148,6 +152,10 @@ class DashboardGowningController extends Controller
         $kualifikasiGowning = KualifikasiGowning::where('jenis_kualifikasi', 'rekualifikasi')
             ->where('hasil', 'QUALIFIED')
             ->whereBetween('tanggal_rekualifikasi', [$startDate, $endDate])
+            ->join('karyawans', 'kualifikasi_gownings.nik', '=', 'karyawans.nik') // Gabungkan tabel karyawan
+            ->orderBy('karyawans.departemen') // Urutkan berdasarkan departemen
+            ->orderBy('karyawans.name') // Lalu urutkan berdasarkan name
+            ->select('kualifikasi_gownings.*') // Pilih kolom dari kualifikasi_gownings
             ->get();
 
         return view('dashboard.gowning.steril', compact('kualifikasiGowning'));
@@ -159,6 +167,10 @@ class DashboardGowningController extends Controller
         $kualifikasiGowning = KualifikasiGowning::where('jenis_kualifikasi', 'aseptis')
             ->where('hasil', 'QUALIFIED')
             ->whereBetween('tanggal_rekualifikasi', [$startDate, $endDate])
+            ->join('karyawans', 'kualifikasi_gownings.nik', '=', 'karyawans.nik') // Gabungkan tabel karyawan
+            ->orderBy('karyawans.departemen') // Urutkan berdasarkan departemen
+            ->orderBy('karyawans.name') // Lalu urutkan berdasarkan name
+            ->select('kualifikasi_gownings.*') // Pilih kolom dari kualifikasi_gownings
             ->get();
 
         return view('dashboard.gowning.aseptis', compact('kualifikasiGowning'));
