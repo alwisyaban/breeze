@@ -5,7 +5,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <!-- id ke datatables -->
-                <table id="datatablesSimple">
+                <table id="datatablesSimple" class="text-center">
                     <thead>
                         <tr>
                             <th>No</th>

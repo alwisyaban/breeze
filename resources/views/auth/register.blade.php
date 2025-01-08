@@ -50,12 +50,13 @@
 
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>
-
-                <div class="flex items-center justify-end mt-2">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa-regular fa-floppy-disk"></i> Save
-                    </button>
-                </div>
+                @if (Auth::user()->name == 'admin')
+                    <div class="flex items-center justify-end mt-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-regular fa-floppy-disk"></i> Save
+                        </button>
+                    </div>
+                @endif
             </form>
             {{-- </x-guest-layout> --}}
         </div>
