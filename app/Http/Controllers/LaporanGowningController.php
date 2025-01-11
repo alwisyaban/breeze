@@ -66,7 +66,7 @@ class LaporanGowningController extends Controller
     public function generatePDF(Request $request)
     {
         $selectedDepartments = $request->input('departemen', []);
-        $line = $request->input('line'); // Ambil nilai line dari request, default LINE 02
+        $line = $request->input('line');
         $data = karyawan::with(['kualifikasiTeori', 'kualifikasiGowning' => function ($query) {
             $query->whereIn('jenis_kualifikasi', ['rekualifikasi', 'aseptis']);
         }])

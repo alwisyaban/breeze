@@ -5,9 +5,9 @@
         <div class="card mb-4">
             <div class="card-header">
                 <h2>Data Karyawan</h2>
-                {{-- @if (auth()->user()->name == 'HCO' || auth()->user()->name == 'admin')
-                @endif --}}
-                <a href="karyawan/create" class="btn btn-success"><i class="fa-solid fa-plus"></i> Karyawan</a>
+                @if (Auth::user()->name == 'admin' || Auth::user()->name == 'HCO')
+                    <a href="karyawan/create" class="btn btn-success"><i class="fa-solid fa-plus"></i> Karyawan</a>
+                @endif
             </div>
 
             <div class="card-body">

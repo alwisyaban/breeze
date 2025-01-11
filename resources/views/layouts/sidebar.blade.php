@@ -23,10 +23,15 @@
                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{ route('karyawan.index') }}">List Karyawan</a>
-                        <a class="nav-link" href="{{ route('kualifikasiTerori.index') }}">HCO</a>
-                        <a class="nav-link" href="{{ route('kualifikasiGowning.index') }}">QC</a>
-                        <a class="nav-link" href="{{ route('laporan-gowning.index') }}">Laporan Gowning</a>
+                        <a class="nav-link" href="{{ route('karyawan.index') }}"><i class="fa-solid fa-users"> </i>&nbsp
+                            List
+                            Karyawan</a>
+                        <a class="nav-link" href="{{ route('kualifikasiTerori.index') }}"> <i
+                                class="fa-regular fa-clipboard"></i>&nbsp HCO</a>
+                        <a class="nav-link" href="{{ route('kualifikasiGowning.index') }}"><i
+                                class="fa-brands fa-galactic-republic"></i>&nbsp QC</a>
+                        <a class="nav-link" href="{{ route('laporan-gowning.index') }}"><i
+                                class="fa-solid fa-file"></i>&nbsp Laporan Gowning</a>
                     </nav>
                 </div>
                 <div class="sb-sidenav-menu-heading">Addons</div>
@@ -44,7 +49,8 @@
                     <div class="collapse" id="collapseConfig" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ route('departemen.index') }}">List Departemen</a>
+                            <a class="nav-link" href="{{ route('departemen.index') }}"><i
+                                    class="fa-regular fa-building"></i>&nbsp List Departemen</a>
                         </nav>
                     </div>
                 @endif

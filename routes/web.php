@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
 
     // Route::get('/register', [RegisteredUserController::class, 'create'])->name('register.create');
     // Route::post('/register', [RegisteredUserController::class, 'store']);
+    Route::get('/export/kualifikasi-teori', [KualifikasiTeoriController::class, 'export'])->name('kualifikasiTeori.export');
 });
 
 

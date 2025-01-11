@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KualifikasiTeoriExport;
 use App\Models\karyawan;
 use App\Models\KualifikasiTeori;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KualifikasiTeoriController extends Controller
 {
@@ -93,5 +95,17 @@ class KualifikasiTeoriController extends Controller
         $kualifikasiTeori->delete();
 
         return redirect()->route('kualifikasiTerori.index')->with('success', 'Kualifikasi teori berhasil dihapus.');
+    }
+
+
+    public function export(Request $request)
+    {
+        $startDate = $request->query('start_date');
+        $endDate = $request->query('end_date');
+
+        return Excel::download(
+            new KualifikasiTeoriExport($startDate, $endDate),
+            'kualifikasi-teori.xlsx'
+        );
     }
 }

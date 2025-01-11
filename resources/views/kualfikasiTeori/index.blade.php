@@ -9,7 +9,24 @@
                     <a href="{{ route('kualifikasiTerori.create') }}" class="btn btn-success"><i class="fa-solid fa-plus"></i>
                         Kualifikasi Teori</a>
                 @endif
-
+                <div class="">
+                    <form method="GET" action="/export/kualifikasi-teori" class="mb-3 mt-3">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="date" name="start_date" class="form-control" placeholder="Tanggal Mulai"
+                                    required>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="date" name="end_date" class="form-control" placeholder="Tanggal Selesai"
+                                    required>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-success"><i class="fa-solid fa-download"></i>
+                                    Unduh Excel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="card-body">
                 <!-- id ke datatables -->
