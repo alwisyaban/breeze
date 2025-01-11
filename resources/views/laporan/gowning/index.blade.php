@@ -58,7 +58,9 @@
                         </select>
                     </div>
                     <button type="submit" class="btn btn-danger">Download PDF</button>
-                    <a href="{{ route('karyawan.export') }}" class="btn btn-success ms-2">Export Excel</a>
+                    <a href="{{ route('karyawan.export') }}" class="btn btn-success ms-2"><i
+                            class="fa-solid fa-download"></i>
+                        Unduh Excel</a>
                 </form>
             </div>
         </div>

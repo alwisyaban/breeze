@@ -10,7 +10,7 @@
                         Kualifikasi Teori</a>
                 @endif
                 <div class="">
-                    <form method="GET" action="/export/kualifikasi-teori" class="mb-3 mt-3">
+                    <form method="GET" action="{{ route('kualifikasiTeori.export') }}" class="mb-3 mt-3">
                         <div class="row">
                             <div class="col-md-4">
                                 <input type="date" name="start_date" class="form-control" placeholder="Tanggal Mulai"

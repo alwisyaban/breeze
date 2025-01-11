@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DashboardTeoriExport;
 use App\Models\DashboardGowning;
 use App\Models\karyawan;
 use App\Models\KualifikasiGowning;
 use App\Models\KualifikasiTeori;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardGowningController extends Controller
 {
@@ -139,6 +141,17 @@ class DashboardGowningController extends Controller
             ->get();
 
         return view('dashboard.gowning.teori', compact('kualifikasiTeori'));
+    }
+
+    public function export()
+    {
+        $startDate = Carbon::now()->startOfMonth(); // Awal bulan ini
+        $endDate = Carbon::now()->addMonths(2)->endOfMonth();
+
+        return Excel::download(
+            new DashboardTeoriExport($startDate, $endDate),
+            'rekualifikasi-teori.xlsx'
+        );
     }
 
     /**

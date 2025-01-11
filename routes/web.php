@@ -41,9 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/export-karyawan', [KaryawanController::class, 'export'])->name('karyawan.export');
     Route::post('/import-karyawan', [KaryawanController::class, 'import'])->name('karyawan.import');
 
-    // Route::get('/register', [RegisteredUserController::class, 'create'])->name('register.create');
-    // Route::post('/register', [RegisteredUserController::class, 'store']);
     Route::get('/export/kualifikasi-teori', [KualifikasiTeoriController::class, 'export'])->name('kualifikasiTeori.export');
+    Route::get('/export/rekualifikasi-teori', [DashboardGowningController::class, 'export'])->name('rekualifikasiTeori.export');
 });
 
 

@@ -6,10 +6,9 @@ use App\Models\karyawan;
 use App\Models\kualifikasiTeori;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class KualifikasiTeoriExport implements FromCollection, WithHeadings
+class DashboardTeoriExport implements FromCollection, WithHeadings
 {
     protected $startDate;
     protected $endDate;
@@ -22,9 +21,9 @@ class KualifikasiTeoriExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        return Karyawan::with(['kualifikasiTeori'])
+        return karyawan::with(['kualifikasiTeori'])
             ->whereHas('kualifikasiTeori', function ($query) {
-                $query->whereBetween('tanggal_kualifikasi', [$this->startDate, $this->endDate]);
+                $query->whereBetween('tanggal_rekualifikasi', [$this->startDate, $this->endDate]);
             })
             ->orderBy('departemen')
             ->get()
@@ -36,7 +35,7 @@ class KualifikasiTeoriExport implements FromCollection, WithHeadings
                     'Tanggal Kualifikasi' => Carbon::parse($karyawan->kualifikasiTeori->tanggal_kualifikasi)->format('d M Y') ?? 'NA',
                     'Nilai' => $karyawan->kualifikasiTeori->nilai ?? 'NA',
                     'Hasil' => $karyawan->kualifikasiTeori->hasil ?? 'NA',
-                    'Tanggal Rekualifikasi' => Carbon::parse($karyawan->kualifikasiTeori->tanggal_rekualifikasi)->format('d M Y')  ?? 'NA',
+                    'Tanggal Rekualifikasi' => Carbon::parse($karyawan->kualifikasiTeori->tanggal_rekualifikasi)->format('d M Y')  ?? 'NA'
                 ];
             });
     }

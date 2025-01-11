@@ -3,6 +3,11 @@
 @section('content')
     <div class="container-fluid px-4">
         <div class="card mb-4">
+            <div class="card-header">
+                <a href="{{ route('rekualifikasiTeori.export') }}" class="btn btn-success ms-2"><i
+                        class="fa-solid fa-download"></i>
+                    Unduh Excel</a>
+            </div>
             <div class="card-body">
                 <!-- id ke datatables -->
                 <table id="datatablesSimple" class="text-center">

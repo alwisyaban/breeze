@@ -47,26 +47,6 @@ class KualifikasiGowningController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'nik' => 'required|exists:karyawans,nik',
-        //     'jenis_kualifikasi' => 'required',
-        //     'tanggal_kualifikasi' => 'required|date',
-        //     'dahi' => 'required|integer',
-        //     'muka_ka' => 'required|integer',
-        //     'muka_ki' => 'required|integer',
-        //     'dada_ka' => 'required|integer',
-        //     'dada_ki' => 'required|integer',
-        //     'lengan_ka' => 'required|integer',
-        //     'lengan_ki' => 'required|integer',
-        //     'finger_ka' => 'required|integer',
-        //     'finger_ki' => 'required|integer',
-        //     'hasil' => 'required|string',
-        //     'tanggal_rekualifikasi' => 'nullable|date',
-        // ]);
-
-        // KualifikasiGowning::create($request->all());
-        // return redirect()->route('kualifikasiGowning.index')->with('success', 'Data berhasil ditambahkan.');
-
         $request->validate([
             'nik' => 'required|exists:karyawans,nik',
             'jenis_kualifikasi' => [
