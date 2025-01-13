@@ -13,10 +13,12 @@
                     <form method="GET" action="{{ route('kualifikasiTeori.export') }}" class="mb-3 mt-3">
                         <div class="row">
                             <div class="col-md-4">
+                                <label for="start_date">Start Date</label>
                                 <input type="date" name="start_date" class="form-control" placeholder="Tanggal Mulai"
                                     required>
                             </div>
                             <div class="col-md-4">
+                                <label for="end_date">End Date</label>
                                 <input type="date" name="end_date" class="form-control" placeholder="Tanggal Selesai"
                                     required>
                             </div>

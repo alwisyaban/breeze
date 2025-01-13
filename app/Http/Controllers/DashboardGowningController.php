@@ -13,47 +13,6 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardGowningController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    // public function index()
-    // {
-    //     $hari = Carbon::now();
-    //     $startDate = Carbon::now()->startOfMonth(); // Awal bulan ini
-    //     $endDate = Carbon::now()->addMonths(2)->endOfMonth(); // Akhir dua bulan ke depan
-    //     $startMonth = $startDate->format('M');
-    //     $endMonth = $endDate->format('M');
-
-    //     $teori = KualifikasiTeori::where('hasil', 'QUALIFIED')
-    //         ->whereBetween('tanggal_rekualifikasi', [$startDate, $endDate])
-    //         ->count();
-
-    //     $steril = KualifikasiGowning::where('jenis_kualifikasi', 'rekualifikasi')
-    //         ->where('hasil', 'QUALIFIED')
-    //         ->whereBetween('tanggal_rekualifikasi', [$startDate, $endDate])
-    //         ->count();
-
-    //     $aseptis = KualifikasiGowning::where('jenis_kualifikasi', 'aseptis')
-    //         ->where('hasil', 'QUALIFIED')
-    //         ->whereBetween('tanggal_rekualifikasi', [$startDate, $endDate])
-    //         ->count();
-
-
-    //     $data = karyawan::with(['kualifikasiTeori', 'kualifikasiGowning' => function ($query) {
-    //         $query->whereIn('jenis_kualifikasi', ['rekualifikasi', 'aseptis']);
-    //     }])
-    //         ->whereHas('kualifikasiTeori', function ($query) {
-    //             $query->where('hasil', 'QUALIFIED') // Filter hanya yang QUALIFIED pada kualifikasi teori
-    //                 ->whereDate('tanggal_rekualifikasi', '>=', Carbon::today());
-    //         })
-    //         ->whereHas('kualifikasiGowning', function ($query) {
-    //             $query->where('jenis_kualifikasi', 'rekualifikasi')
-    //                 ->where('hasil', 'QUALIFIED') // Filter hanya yang QUALIFIED pada rekualifikasi
-    //                 ->whereDate('tanggal_rekualifikasi', '>=', Carbon::today());
-    //         })
-    //         ->get();
-    //     return view('dashboard.gowning.index', compact('teori', 'steril', 'aseptis', 'hari', 'data', 'startDate', 'endDate', 'startMonth', 'endMonth'));
-    // }
     public function index()
     {
         $hari = Carbon::now();
