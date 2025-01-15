@@ -106,7 +106,7 @@
                     if ($rekualifikasiDate) {
                         $date = \Carbon\Carbon::parse($rekualifikasiDate);
                         $now = \Carbon\Carbon::now();
-                        $twoMonthsLater = $now->copy()->addMonths(2);
+                        $twoMonthsLater = $now->copy()->addMonths(3);
 
                         $isExpiring = $date->between($now, $twoMonthsLater);
                     }
