@@ -53,7 +53,7 @@
                             <option value="">Pilih Line :</option>
                             <option value="LINE 02" {{ request('line') == 'LINE 02' ? 'selected' : '' }}>LINE 02</option>
                             <option value="LINE 07" {{ request('line') == 'LINE 07' ? 'selected' : '' }}>LINE 07</option>
-                            <option value="LINE 09" {{ request('line') == 'LINE 08' ? 'selected' : '' }}>LINE 08</option>
+                            <option value="LINE 08" {{ request('line') == 'LINE 08' ? 'selected' : '' }}>LINE 08</option>
                             <option value="LINE 05" {{ request('LINE') == 'LINE 05' ? 'selected' : '' }}>LINE 05</option>
                         </select>
                     </div>

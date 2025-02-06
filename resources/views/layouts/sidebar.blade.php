@@ -52,7 +52,7 @@
                                 class="fa-regular fa-clipboard"></i>&nbsp List Karyawan</a>
                         <a class="nav-link" href="#"><i class="fa-solid fa-file"></i>&nbsp Laporan Gowning</a>
                     </nav>
-                </div> --}}
+                </div>
                 <div class="sb-sidenav-menu-heading">Addons</div>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseConfig"
                     aria-expanded="false" aria-controls="collapseConfig">
@@ -63,7 +63,7 @@
                     <div class="sb-sidenav-collapse-arrow">
                         <i class="fas fa-angle-down"></i>
                     </div>
-                </a>
+                </a> --}}
                 @if (Auth::user()->name == 'admin')
                     <div class="collapse" id="collapseConfig" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
