@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardGowningController;
 use App\Http\Controllers\DepartemenController;
+use App\Http\Controllers\InspeksiController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\KualifikasiGowningController;
 use App\Http\Controllers\KualifikasiTeoriController;
@@ -29,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('karyawan', KaryawanController::class);
     Route::resource('kualifikasiTerori', KualifikasiTeoriController::class);
     Route::resource('kualifikasiGowning', KualifikasiGowningController::class);
+    Route::resource('inspeksi', InspeksiController::class);
     Route::resource('monitoringDR', MonitoringDrController::class);
     Route::get('dashboard/teori', [DashboardGowningController::class, 'teori'])->name('teori');
     Route::get('dashboard/steril', [DashboardGowningController::class, 'steril'])->name('steril');
