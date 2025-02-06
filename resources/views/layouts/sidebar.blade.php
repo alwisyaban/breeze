@@ -35,7 +35,7 @@
                     </nav>
                 </div>
                 {{-- new --}}
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                {{-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                     data-bs-target="#collapseInspeksi" aria-expanded="false" aria-controls="collapseInspeksi">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-columns"></i>
@@ -52,7 +52,7 @@
                                 class="fa-regular fa-clipboard"></i>&nbsp List Karyawan</a>
                         <a class="nav-link" href="#"><i class="fa-solid fa-file"></i>&nbsp Laporan Gowning</a>
                     </nav>
-                </div>
+                </div> --}}
                 <div class="sb-sidenav-menu-heading">Addons</div>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseConfig"
                     aria-expanded="false" aria-controls="collapseConfig">
