@@ -89,10 +89,10 @@
                 <th>Employee Number</th>
                 <th style="width:20%">Name</th>
                 <th>Department</th>
-                <th style="width: 12%">Sterile Re-qualification Date</th>
                 <th>Sterile Qualification Status*</th>
-                <th style="width: 13%">Aseptic Re-qualification Date</th>
+                <th style="width: 12%">Sterile Re-qualification Date</th>
                 <th>Aseptic Qualification Status*</th>
+                <th style="width: 13%">Aseptic Re-qualification Date</th>
                 <th>Qualified for Grade</th>
             </tr>
             </tr>
@@ -116,6 +116,8 @@
                     <td>{{ $karyawan->nik }}</td>
                     <td>{{ $karyawan->name }}</td>
                     <td>{{ $karyawan->departemen }}</td>
+                    <td>{{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->hasil ?? 'NOT QUALIFIED' }}
+                    </td>
                     <td>
                         {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->tanggal_rekualifikasi
                             ? \Carbon\Carbon::parse(
@@ -123,13 +125,11 @@
                             )->format('d M Y')
                             : 'NOT QUALIFIED' }}
                     </td>
-                    <td>{{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->hasil ?? 'NOT QUALIFIED' }}
+                    <td>
+                        {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->hasil ?? 'NOT QUALIFIED' }}
                     </td>
                     <td>
                         {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->tanggal_rekualifikasi ?? 'NA' }}
-                    </td>
-                    <td>
-                        {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->hasil ?? 'NOT QUALIFIED' }}
                     </td>
                     <td>GRADE B & C</td>
                 </tr>
