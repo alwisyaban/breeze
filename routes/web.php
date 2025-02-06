@@ -10,7 +10,6 @@ use App\Http\Controllers\KualifikasiTeoriController;
 use App\Http\Controllers\LaporanGowningController;
 use App\Http\Controllers\MonitoringDrController;
 use App\Http\Controllers\ProfileController;
-use FontLib\Table\Type\name;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {

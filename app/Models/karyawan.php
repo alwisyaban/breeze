@@ -19,6 +19,10 @@ class karyawan extends Model
     {
         return $this->hasOne(KualifikasiTeori::class, 'nik', 'nik');
     }
+    public function inspeksi()
+    {
+        return $this->hasMany(Inspeksi::class, 'nik', 'nik');
+    }
 
     public function kualifikasiGowning()
     {

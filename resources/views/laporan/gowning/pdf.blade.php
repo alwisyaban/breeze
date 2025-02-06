@@ -98,7 +98,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($data as $karyawan)
+            {{-- @forelse ($data as $karyawan)
                 @php
                     $rekualifikasiDate = $karyawan->kualifikasiTeori->tanggal_rekualifikasi; // Ambil dari kualifikasiTeori
                     $isExpiring = false;
@@ -137,7 +137,66 @@
                 <tr>
                     <td colspan="10" class="text-center">Tidak ada data untuk ditampilkan.</td>
                 </tr>
+            @endforelse --}}
+            {{-- test --}}
+            @forelse ($data as $karyawan)
+                @php
+                    // Cek tanggal rekualifikasi dari kualifikasiTeori
+                    $rekualifikasiTeoriDate = optional($karyawan->kualifikasiTeori)->tanggal_rekualifikasi;
+                    $isExpiringTeori = false;
+
+                    if ($rekualifikasiTeoriDate) {
+                        $dateTeori = \Carbon\Carbon::parse($rekualifikasiTeoriDate);
+                        $now = \Carbon\Carbon::now();
+                        $threeMonthsLater = $now->copy()->addMonths(3);
+                        $isExpiringTeori = $dateTeori->between($now, $threeMonthsLater);
+                    }
+
+                    // Cek tanggal rekualifikasi dari kualifikasiGowning dengan jenis_kualifikasi = rekualifikasi
+                    $rekualifikasiGowning = optional(
+                        $karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'),
+                    )->tanggal_rekualifikasi;
+                    $isExpiringGowning = false;
+
+                    if ($rekualifikasiGowning) {
+                        $dateGowning = \Carbon\Carbon::parse($rekualifikasiGowning);
+                        $isExpiringGowning = $dateGowning->between($now, $threeMonthsLater);
+                    }
+
+                    // Jika salah satu mendekati masa kadaluarsa, beri warna kuning
+                    $isExpiring = $isExpiringTeori || $isExpiringGowning;
+                @endphp
+
+                <tr @if ($isExpiring) style="background-color: yellow;" @endif>
+                    <td class="data">{{ $loop->iteration }}</td>
+                    <td>{{ $karyawan->nik }}</td>
+                    <td>{{ $karyawan->name }}</td>
+                    <td>{{ $karyawan->departemen }}</td>
+                    <td>
+                        {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->hasil ?? 'NOT QUALIFIED' }}
+                    </td>
+                    <td>
+                        {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->tanggal_rekualifikasi
+                            ? \Carbon\Carbon::parse(
+                                optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'rekualifikasi'))->tanggal_rekualifikasi,
+                            )->format('d M Y')
+                            : 'NOT QUALIFIED' }}
+                    </td>
+                    <td>
+                        {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->hasil ?? 'NOT QUALIFIED' }}
+                    </td>
+                    <td>
+                        {{ optional($karyawan->kualifikasiGowning->firstWhere('jenis_kualifikasi', 'aseptis'))->tanggal_rekualifikasi ?? 'NA' }}
+                    </td>
+                    <td>GRADE B & C</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="10" class="text-center">Tidak ada data untuk ditampilkan.</td>
+                </tr>
             @endforelse
+
+
         </tbody>
         <tfoot style="
         height: 80px;

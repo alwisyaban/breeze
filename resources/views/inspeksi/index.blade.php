@@ -6,7 +6,7 @@
             <div class="card-header">
                 <h2>Data Kualifikasi Kejernihan</h2>
                 @if (Auth::user()->name == 'admin' || Auth::user()->name == 'HCO')
-                    <a href="{{ route('kualifikasiTerori.create') }}" class="btn btn-success"><i class="fa-solid fa-plus"></i>
+                    <a href="{{ route('inspeksi.create') }}" class="btn btn-success"><i class="fa-solid fa-plus"></i>
                         Kualifikasi Kejernihan</a>
                 @endif
                 <div class="">
@@ -59,10 +59,10 @@
                                 <td>{{ Carbon\Carbon::parse($item->tanggal_rekualifikasi)->format('d M Y') }}</td>
                                 <td>
                                     @if (Auth::user()->name == 'admin' || Auth::user()->name == 'HCO')
-                                        <a href="{{ route('kualifikasiTerori.edit', $item->id_inspeksi) }}"
+                                        <a href="{{ route('inspeksi.edit', $item->id_inspeksi) }}"
                                             class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <form action="{{ route('kualifikasiTerori.destroy', $item->id_inspeksi) }}"
-                                            method="post" class="d-inline">
+                                        <form action="{{ route('inspeksi.destroy', $item->id_inspeksi) }}" method="post"
+                                            class="d-inline">
                                             @csrf
                                             @method('delete')
                                             <button class="btn btn-danger btn-sm ml-2"

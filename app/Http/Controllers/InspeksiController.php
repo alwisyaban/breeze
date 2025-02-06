@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departemen;
 use App\Models\Inspeksi;
+use App\Models\karyawan;
 use Illuminate\Http\Request;
 
 class InspeksiController extends Controller
@@ -26,7 +28,8 @@ class InspeksiController extends Controller
      */
     public function create()
     {
-        //
+        $karyawans = karyawan::get();
+        return view('inspeksi.create', compact('karyawans'));
     }
 
     /**
@@ -34,7 +37,19 @@ class InspeksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'nik' => 'required|unique:inspeksis,nik',
+            'tanggal_kualifikasi' => 'required|date',
+            'jenis_sediaan' => 'required|string',
+            'nilai' => 'required|numeric',
+            'hasil' => 'required|string',
+            'tanggal_rekualifikasi' => 'nullable|date',
+        ]);
+
+        $inspeksi = new Inspeksi();
+        $inspeksi->fill($data);
+        $inspeksi->save();
+        return redirect()->route('inspeksi.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
     /**
