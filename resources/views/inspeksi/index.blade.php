@@ -5,7 +5,7 @@
         <div class="card mb-4">
             <div class="card-header">
                 <h2>Data Kualifikasi Kejernihan</h2>
-                @if (Auth::user()->name == 'admin' || Auth::user()->name == 'HCO')
+                @if (Auth::user()->name == 'admin')
                     <a href="{{ route('inspeksi.create') }}" class="btn btn-success"><i class="fa-solid fa-plus"></i>
                         Kualifikasi Kejernihan</a>
                 @endif
@@ -39,6 +39,8 @@
                             <th>Initial</th>
                             <th>Departemen</th>
                             <th>Tanggal Kualifikasi</th>
+                            <th>Bentuk Sediaan</th>
+                            <th>Jenis Sediaan</th>
                             <th>Nilai</th>
                             <th>Hasil</th>
                             <th>Tanggal Rekualifikasi</th>
@@ -54,14 +56,16 @@
                                 <td>{{ $item->karyawan->initial }}</td>
                                 <td>{{ $item->karyawan->departemen }}</td>
                                 <td>{{ Carbon\Carbon::parse($item->tanggal_kualifikasi)->format('d M Y') }}</td>
+                                <td>{{ $item->bentuk_sediaan }}</td>
+                                <td>{{ $item->jenis_sediaan }}</td>
                                 <td>{{ $item->nilai }}</td>
                                 <td>{{ $item->hasil }}</td>
                                 <td>{{ Carbon\Carbon::parse($item->tanggal_rekualifikasi)->format('d M Y') }}</td>
                                 <td>
-                                    @if (Auth::user()->name == 'admin' || Auth::user()->name == 'HCO')
-                                        <a href="{{ route('inspeksi.edit', $item->id_inspeksi) }}"
-                                            class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <form action="{{ route('inspeksi.destroy', $item->id_inspeksi) }}" method="post"
+                                    @if (Auth::user()->name == 'admin')
+                                        <a href="{{ route('inspeksi.edit', $item->id) }}" class="btn btn-primary btn-sm"><i
+                                                class="fa-solid fa-pen-to-square"></i></a>
+                                        <form action="{{ route('inspeksi.destroy', $item->id) }}" method="post"
                                             class="d-inline">
                                             @csrf
                                             @method('delete')

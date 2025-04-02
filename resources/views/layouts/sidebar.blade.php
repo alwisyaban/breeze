@@ -35,7 +35,7 @@
                     </nav>
                 </div>
                 {{-- new --}}
-                @if (Auth::user()->name == 'super admin')
+                @if (Auth::user()->name == 'admin')
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                         data-bs-target="#collapseInspeksi" aria-expanded="false" aria-controls="collapseInspeksi">
                         <div class="sb-nav-link-icon">
@@ -51,7 +51,8 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{ route('inspeksi.index') }}"> <i
                                     class="fa-regular fa-clipboard"></i>&nbsp List Karyawan</a>
-                            <a class="nav-link" href="#"><i class="fa-solid fa-file"></i>&nbsp Laporan
+                            <a class="nav-link" href="{{ route('inspeksi-laporan.index') }}"><i
+                                    class="fa-solid fa-file"></i>&nbsp Laporan
                                 Kejernihan</a>
                         </nav>
                     </div>
@@ -73,6 +74,10 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{ route('departemen.index') }}"><i
                                     class="fa-regular fa-building"></i>&nbsp List Departemen</a>
+                        </nav>
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('sediaan.index') }}"><i
+                                    class="fa-regular fa-building"></i>&nbsp List Sediaan</a>
                         </nav>
                     </div>
                 @endif

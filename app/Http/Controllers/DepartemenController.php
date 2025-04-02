@@ -70,7 +70,7 @@ class DepartemenController extends Controller
         $departemens = Departemen::find($id);
         $departemens->fill($requestData);
         $departemens->save();
-        session()->flash('success', 'Data berhasil ditambahkan!');
+        session()->flash('success', 'Data berhasil di Ubah!');
 
         return redirect()->route('departemen.index');
     }

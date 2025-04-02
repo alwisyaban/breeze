@@ -8,8 +8,10 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\KualifikasiGowningController;
 use App\Http\Controllers\KualifikasiTeoriController;
 use App\Http\Controllers\LaporanGowningController;
+use App\Http\Controllers\LaporanInspeksiController;
 use App\Http\Controllers\MonitoringDrController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SediaanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('kualifikasiTerori', KualifikasiTeoriController::class);
     Route::resource('kualifikasiGowning', KualifikasiGowningController::class);
     Route::resource('inspeksi', InspeksiController::class);
+    Route::resource('sediaan', SediaanController::class);
     Route::resource('monitoringDR', MonitoringDrController::class);
     Route::get('dashboard/teori', [DashboardGowningController::class, 'teori'])->name('teori');
     Route::get('dashboard/steril', [DashboardGowningController::class, 'steril'])->name('steril');
@@ -38,6 +41,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/laporan-gowning/generate-pdf', [LaporanGowningController::class, 'generatePDF'])->name('laporan-gowning.generatePDF');
     Route::resource('laporan-gowning', LaporanGowningController::class);
+    Route::resource('inspeksi-laporan', LaporanInspeksiController::class);
 
     Route::get('/export-karyawan', [KaryawanController::class, 'export'])->name('karyawan.export');
     Route::post('/import-karyawan', [KaryawanController::class, 'import'])->name('karyawan.import');

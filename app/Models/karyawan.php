@@ -19,7 +19,7 @@ class karyawan extends Model
     {
         return $this->hasOne(KualifikasiTeori::class, 'nik', 'nik');
     }
-    public function inspeksi()
+    public function KualifikasiInspeksi()
     {
         return $this->hasMany(Inspeksi::class, 'nik', 'nik');
     }

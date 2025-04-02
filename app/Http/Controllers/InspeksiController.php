@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Departemen;
 use App\Models\Inspeksi;
 use App\Models\karyawan;
+use App\Models\Sediaan;
 use Illuminate\Http\Request;
 
 class InspeksiController extends Controller
@@ -29,7 +30,8 @@ class InspeksiController extends Controller
     public function create()
     {
         $karyawans = karyawan::get();
-        return view('inspeksi.create', compact('karyawans'));
+        $sediaans = Sediaan::all()->pluck('name');
+        return view('inspeksi.create', compact('karyawans', 'sediaans'));
     }
 
     /**
@@ -38,8 +40,9 @@ class InspeksiController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nik' => 'required|unique:inspeksis,nik',
+            'nik' => 'required',
             'tanggal_kualifikasi' => 'required|date',
+            'bentuk_sediaan' => 'required|string',
             'jenis_sediaan' => 'required|string',
             'nilai' => 'required|numeric',
             'hasil' => 'required|string',
@@ -63,24 +66,44 @@ class InspeksiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Inspeksi $inspeksi)
+    public function edit($id)
     {
-        //
+        $inspeksi = Inspeksi::find($id);
+        return view('inspeksi.edit', compact('inspeksi'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Inspeksi $inspeksi)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'nik' => 'required',
+            'tanggal_kualifikasi' => 'required|date',
+            'bentuk_sediaan' => 'required|string',
+            'jenis_sediaan' => 'required|string',
+            'nilai' => 'required|numeric',
+            'hasil' => 'required|string',
+            'tanggal_rekualifikasi' => 'nullable|date',
+        ]);
+
+        $inspeksi = Inspeksi::find($id);
+        $inspeksi->fill($data);
+        $inspeksi->save();
+
+        session()->flash('success', 'Data berhasil di Ubah!');
+
+        return redirect()->route('inspeksi.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Inspeksi $inspeksi)
+    public function destroy($id)
     {
-        //
+        $inspeksi = Inspeksi::findOrFail($id);
+        $inspeksi->delete();
+        session()->flash('success', 'Data berhasil Dihapus!');
+        return back();
     }
 }

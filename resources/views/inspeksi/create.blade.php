@@ -18,8 +18,24 @@
                 <input type="date" name="tanggal_kualifikasi" id="tanggal_kualifikasi" class="form-control" required>
             </div>
             <div class="form-group mt-3">
+                <label for="bentuk_sediaan">Bentuk Sediaan</label>
+                <select name="bentuk_sediaan" id="bentuk_sediaan" class="form-control" required>
+                    <option value="">-- Pilih Bentuk Sediaan --</option>
+                    <option value="Vial">Vial</option>
+                    <option value="Ampul">Ampul</option>
+                </select>
+            </div>
+            <div class="form-group mt-1 mb-3">
                 <label for="jenis_sediaan">Jenis Sediaan</label>
-                <input type="text" name="jenis_sediaan" id="jenis_sediaan" class="form-control" required>
+                <div class="col-lg-4">
+                    <select name="jenis_sediaan" id="jenis_sediaan" class="form-control select2" required>
+                        <option value="">Pilih Sediaan</option>
+                        @foreach ($sediaans as $key => $item)
+                            <option value="{{ $item }}">{{ $item }}</option>
+                        @endforeach
+                    </select>
+                    <span class="help-block with-errors"></span>
+                </div>
             </div>
             <div class="form-group mt-3">
                 <label for="nilai">Nilai</label>
