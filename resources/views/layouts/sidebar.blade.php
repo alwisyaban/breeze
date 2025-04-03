@@ -53,6 +53,13 @@
                                     class="fa-regular fa-building"></i>&nbsp List Departemen</a>
                         </nav>
                     </div>
+                    <div class="collapse" id="collapseConfig" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('wadah.index') }}"><i
+                                    class="fa-regular fa-building"></i>&nbsp List wadah</a>
+                        </nav>
+                    </div>
                 @endif
             </div>
         </div>

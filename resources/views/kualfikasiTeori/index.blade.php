@@ -49,19 +49,20 @@
                         @foreach ($kualifikasiTeori as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->karyawan->nik }}</td>
-                                <td>{{ $item->karyawan->name }}</td>
-                                <td>{{ $item->karyawan->initial }}</td>
-                                <td>{{ $item->karyawan->departemen }}</td>
-                                <td>{{ Carbon\Carbon::parse($item->tanggal_kualifikasi)->format('d M Y') }}</td>
-                                <td>{{ $item->nilai }}</td>
-                                <td>{{ $item->hasil }}</td>
-                                <td>{{ Carbon\Carbon::parse($item->tanggal_rekualifikasi)->format('d M Y') }}</td>
+                                <td>{{ $item['karyawan']['nik'] }}</td>
+                                <td>{{ $item['karyawan']['name'] }}</td>
+                                <td>{{ $item['karyawan']['initial'] }}</td>
+                                <td>{{ $item['karyawan']['departemen'] }}</td>
+                                <td>{{ Carbon\Carbon::parse($item['tanggal_kualifikasi'])->format('d M Y') }}</td>
+                                <td>{{ $item['nilai'] }}</td>
+                                <td>{{ $item['hasil'] }}</td>
+                                <td>{{ Carbon\Carbon::parse($item['tanggal_rekualifikasi'])->format('d M Y') }}</td>
                                 <td>
                                     @if (Auth::user()->name == 'admin' || Auth::user()->name == 'HCO')
-                                        <a href="{{ route('kualifikasiTerori.edit', $item->id_kualifikasiTeori) }}"
+                                        <a href="{{ route('kualifikasiTerori.edit', $item['id_kualifikasiTeori']) }}"
                                             class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <form action="{{ route('kualifikasiTerori.destroy', $item->id_kualifikasiTeori) }}"
+                                        <form
+                                            action="{{ route('kualifikasiTerori.destroy', $item['id_kualifikasiTeori']) }}"
                                             method="post" class="d-inline">
                                             @csrf
                                             @method('delete')

@@ -3,16 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departemen;
+use App\Services\DepartemenService;
 use Illuminate\Http\Request;
 
 class DepartemenController extends Controller
 {
+
+    private DepartemenService $departemenService;
+
+    public function __construct(DepartemenService $departemenService)
+    {
+        $this->departemenService = $departemenService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $departemens = Departemen::all();
+        $departemens = $this->departemenService->getDepertemen();
         return view('departemen.index', compact('departemens'));
     }
 
@@ -29,15 +38,8 @@ class DepartemenController extends Controller
      */
     public function store(Request $request)
     {
-        $requestData = $request->validate([
-            'departemen' => 'required|unique:departemens'
-        ]);
-
-        $departemens = new Departemen();
-        $departemens->fill($requestData);
-        $departemens->save();
+        $this->departemenService->saveDepartemen($request->all());
         session()->flash('success', 'Data berhasil ditambahkan!');
-
         return redirect()->route('departemen.index');
     }
 
@@ -61,27 +63,23 @@ class DepartemenController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Departemen $departemen, $id)
+    public function update(Request $request, $id)
     {
-        $requestData = $request->validate([
+        $request->validate([
             'departemen' => 'required'
         ]);
 
-        $departemens = Departemen::find($id);
-        $departemens->fill($requestData);
-        $departemens->save();
+        $this->departemenService->updateDepartemen($id, $request->only(['departemen']));
         session()->flash('success', 'Data berhasil ditambahkan!');
-
         return redirect()->route('departemen.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Departemen $departemen, $id)
+    public function destroy($id)
     {
-        $departemens = Departemen::find($id);
-        $departemens->delete();
+        $this->departemenService->removeDepartemen($id);
         session()->flash('success', 'Data berhasil Dihapus!');
         return back();
     }

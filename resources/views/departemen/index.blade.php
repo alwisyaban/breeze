@@ -21,10 +21,10 @@
                         @foreach ($departemens as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->departemen }}</td>
-                                <td><a href="departemen/{{ $item->id_departemen }}/edit" class="btn btn-primary btn-sm"><i
+                                <td>{{ $item['departemen'] }}</td>
+                                <td><a href="departemen/{{ $item['id_departemen'] }}/edit" class="btn btn-primary btn-sm"><i
                                             class="fa-solid fa-pen-to-square"></i></a>
-                                    <form action="/departemen/{{ $item->id_departemen }}" method="post" class="d-inline">
+                                    <form action="/departemen/{{ $item['id_departemen'] }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger btn-sm ml-2"

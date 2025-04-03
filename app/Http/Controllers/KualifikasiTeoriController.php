@@ -5,22 +5,25 @@ namespace App\Http\Controllers;
 use App\Exports\KualifikasiTeoriExport;
 use App\Models\karyawan;
 use App\Models\KualifikasiTeori;
+use App\Services\KualifikasiTeoriService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class KualifikasiTeoriController extends Controller
 {
+    private KualifikasiTeoriService $kualifikasiTeoriService;
+
+    public function __construct(KualifikasiTeoriService $kualifikasiTeoriService)
+    {
+        $this->kualifikasiTeoriService = $kualifikasiTeoriService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $kualifikasiTeori = KualifikasiTeori::with('karyawan')
-            ->join('karyawans', 'kualifikasi_teoris.nik', '=', 'karyawans.nik')
-            ->orderBy('karyawans.departemen') // Urutkan berdasarkan departemen
-            ->orderBy('karyawans.name') // Lalu urutkan berdasarkan name
-            ->select('kualifikasi_teoris.*') // Pilih kolom dari kualifikasi_gownings
-            ->get();
+        $kualifikasiTeori = $this->kualifikasiTeoriService->getKualifikasiTeori();
         return view('kualfikasiTeori.index', compact('kualifikasiTeori'));
     }
 
@@ -46,7 +49,7 @@ class KualifikasiTeoriController extends Controller
             'tanggal_rekualifikasi' => 'nullable|date',
         ]);
 
-        KualifikasiTeori::create($request->all());
+        $this->kualifikasiTeoriService->saveKualifikasiTeori($request->all());
 
         return redirect()->route('kualifikasiTerori.index')->with('success', 'Data Berhasil Ditambah!');
     }
@@ -80,8 +83,7 @@ class KualifikasiTeoriController extends Controller
             'tanggal_rekualifikasi' => 'nullable|date',
         ]);
 
-        $kualifikasiTeori = KualifikasiTeori::findOrFail($id);
-        $kualifikasiTeori->update($request->all());
+        $this->kualifikasiTeoriService->updateKualifikasiTeori($id, $request->all());
 
         return redirect()->route('kualifikasiTerori.index')->with('success', 'Kualifikasi teori berhasil diupdate.');
     }
@@ -91,8 +93,7 @@ class KualifikasiTeoriController extends Controller
      */
     public function destroy($id)
     {
-        $kualifikasiTeori = KualifikasiTeori::findOrFail($id);
-        $kualifikasiTeori->delete();
+        $this->kualifikasiTeoriService->removeKualifikasiTeori($id);
 
         return redirect()->route('kualifikasiTerori.index')->with('success', 'Kualifikasi teori berhasil dihapus.');
     }

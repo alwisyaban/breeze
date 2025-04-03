@@ -5,19 +5,26 @@ namespace App\Http\Controllers;
 use App\Exports\LaporanExport;
 use App\Models\Departemen;
 use App\Models\karyawan;
+use App\Services\KaryawanService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class KaryawanController extends Controller
 {
+
+    private KaryawanService $karyawanService;
+
+    public function __construct(KaryawanService $karyawanService)
+    {
+        $this->karyawanService = $karyawanService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $karyawans = karyawan::orderBy('departemen')
-            ->orderBy('name', 'asc')
-            ->get();
+        $karyawans = $this->karyawanService->getKaryawan();
         return view('karyawan.index', compact('karyawans'));
     }
 
@@ -35,18 +42,16 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        $requestData = $request->validate([
+        $request->validate([
             'nik' => 'required|unique:karyawans,nik',
             'name' => 'required',
             'initial' => 'required',
             'departemen' => 'required'
         ]);
 
-        $karyawans = new karyawan();
-        $karyawans->fill($requestData);
-        $karyawans->save();
-
-        return redirect()->route('karyawan.index')->with('success', 'Data berhasil ditambahkan.');
+        $this->karyawanService->saveKaryawan($request->all());
+        session()->flash('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('karyawan.index');
     }
 
     /**
@@ -72,18 +77,15 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $requestData = $request->validate([
+        $request->validate([
             'nik' => 'required',
             'name' => 'required',
             'initial' => 'required',
             'departemen' => 'required'
         ]);
 
-        $karyawans = karyawan::find($id);
-        $karyawans->fill($requestData);
-        $karyawans->save();
+        $this->karyawanService->updateKaryawan($id, $request->only(['nik', 'name', 'initial', 'departemen']));
         session()->flash('success', 'Data berhasil diubah!');
-
         return redirect()->route('karyawan.index');
     }
 
@@ -92,10 +94,7 @@ class KaryawanController extends Controller
      */
     public function destroy($id)
     {
-        $karyawans = karyawan::findOrFail($id);
-        $karyawans->KualifikasiTeori()->delete();
-        $karyawans->kualifikasiGowning()->delete();
-        $karyawans->delete();
+        $this->karyawanService->removeKaryawan($id);
         session()->flash('success', 'Data berhasil Dihapus!');
         return back();
     }
