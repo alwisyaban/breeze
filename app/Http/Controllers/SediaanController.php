@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Departemen;
-use App\Services\DepartemenService;
+use App\Models\Sediaan;
+use App\Services\SediaanService;
 use Illuminate\Http\Request;
 
-class DepartemenController extends Controller
+class SediaanController extends Controller
 {
+    private SediaanService $sediaanService;
 
-    private DepartemenService $departemenService;
-
-    public function __construct(DepartemenService $departemenService)
+    public function __construct(SediaanService $sediaanService)
     {
-        $this->departemenService = $departemenService;
+        $this->sediaanService = $sediaanService;
     }
 
     /**
@@ -21,8 +20,8 @@ class DepartemenController extends Controller
      */
     public function index()
     {
-        $departemens = $this->departemenService->getDepertemen();
-        return view('departemen.index', compact('departemens'));
+        $sediaans = $this->sediaanService->getSediaan();
+        return view('sediaan.index', compact('sediaans'));
     }
 
     /**
@@ -30,7 +29,7 @@ class DepartemenController extends Controller
      */
     public function create()
     {
-        return view('departemen.create');
+        return view('sediaan.create');
     }
 
     /**
@@ -38,15 +37,18 @@ class DepartemenController extends Controller
      */
     public function store(Request $request)
     {
-        $this->departemenService->saveDepartemen($request->all());
+        $request->validate([
+            'sediaan' => 'required||unique:sediaans'
+        ]);
+        $this->sediaanService->saveSediaan($request->all());
         session()->flash('success', 'Data berhasil ditambahkan!');
-        return redirect()->route('departemen.index');
+        return redirect()->route('sediaan.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Departemen $departemen)
+    public function show(Sediaan $sediaan)
     {
         //
     }
@@ -54,10 +56,10 @@ class DepartemenController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Departemen $departemen, $id)
+    public function edit($id)
     {
-        $departemens = Departemen::find($id);
-        return view('departemen.edit', compact('departemens'));
+        $sediaan = Sediaan::find($id);
+        return view('sediaan.edit', compact('sediaan'));
     }
 
     /**
@@ -66,12 +68,12 @@ class DepartemenController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'departemen' => 'required||unique:departemens'
+            'sediaan' => 'required||unique:sediaans'
         ]);
 
-        $this->departemenService->updateDepartemen($id, $request->only(['departemen']));
+        $this->sediaanService->updateSediaan($id, $request->only(['sediaan']));
         session()->flash('success', 'Data berhasil ditambahkan!');
-        return redirect()->route('departemen.index');
+        return redirect()->route('sediaan.index');
     }
 
     /**
@@ -79,7 +81,7 @@ class DepartemenController extends Controller
      */
     public function destroy($id)
     {
-        $this->departemenService->removeDepartemen($id);
+        $this->sediaanService->removeSediaan($id);
         session()->flash('success', 'Data berhasil Dihapus!');
         return back();
     }

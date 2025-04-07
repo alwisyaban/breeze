@@ -6,5 +6,6 @@ return [
     App\Providers\KaryawanProvider::class,
     App\Providers\KualifikasiGowningProvider::class,
     App\Providers\KualifikasiTeoriProvider::class,
+    App\Providers\SediaanProvider::class,
     App\Providers\WadahProvider::class,
 ];

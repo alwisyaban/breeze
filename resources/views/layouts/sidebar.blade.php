@@ -57,7 +57,14 @@
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{ route('wadah.index') }}"><i
-                                    class="fa-regular fa-building"></i>&nbsp List wadah</a>
+                                    class="fa-regular fa-building"></i>&nbsp List Wadah</a>
+                        </nav>
+                    </div>
+                    <div class="collapse" id="collapseConfig" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ route('sediaan.index') }}"><i
+                                    class="fa-regular fa-building"></i>&nbsp List Sediaan</a>
                         </nav>
                     </div>
                 @endif
