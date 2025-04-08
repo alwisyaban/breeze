@@ -12,6 +12,8 @@ use App\Http\Controllers\LaporanInspeksiController;
 use App\Http\Controllers\MonitoringDrController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SediaanController;
+use App\Http\Controllers\WadahController;
+use FontLib\Table\Type\name;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('departemen', DepartemenController::class);
+    Route::resource('wadah', WadahController::class);
+    Route::resource('sediaan', SediaanController::class);
     Route::resource('karyawan', KaryawanController::class);
     Route::resource('kualifikasiTerori', KualifikasiTeoriController::class);
     Route::resource('kualifikasiGowning', KualifikasiGowningController::class);

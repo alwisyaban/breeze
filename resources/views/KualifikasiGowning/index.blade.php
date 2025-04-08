@@ -42,20 +42,20 @@
                         @foreach ($kualifikasiGowning as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->karyawan->nik }}</td>
-                                <td>{{ $item->karyawan->name }}</td>
-                                <td>{{ $item->karyawan->initial }}</td>
-                                <td>{{ $item->karyawan->departemen }}</td>
-                                <td>{{ $item->jenis_kualifikasi }}</td>
-                                <td>{{ Carbon\Carbon::parse($item->tanggal_kualifikasi)->format('d M Y') }}</td>
-                                <td>{{ $item->hasil }}</td>
-                                <td>{{ Carbon\Carbon::parse($item->tanggal_rekualifikasi)->format('d M Y') }}</td>
+                                <td>{{ $item['karyawan']['nik'] }}</td>
+                                <td>{{ $item['karyawan']['name'] }}</td>
+                                <td>{{ $item['karyawan']['initial'] }}</td>
+                                <td>{{ $item['karyawan']['departemen'] }}</td>
+                                <td>{{ $item['jenis_kualifikasi'] }}</td>
+                                <td>{{ Carbon\Carbon::parse($item['tanggal_kualifikasi'])->format('d M Y') }}</td>
+                                <td>{{ $item['hasil'] }}</td>
+                                <td>{{ Carbon\Carbon::parse($item['tanggal_rekualifikasi'])->format('d M Y') }}</td>
                                 <td>
                                     @if (Auth::user()->name == 'admin' || Auth::user()->name == 'QC')
-                                        <a href="{{ route('kualifikasiGowning.edit', $item->id_kualifikasiGowning) }}"
+                                        <a href="{{ route('kualifikasiGowning.edit', $item['id_kualifikasiGowning']) }}"
                                             class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
                                         <form
-                                            action="{{ route('kualifikasiGowning.destroy', $item->id_kualifikasiGowning) }}"
+                                            action="{{ route('kualifikasiGowning.destroy', $item['id_kualifikasiGowning']) }}"
                                             method="post" class="d-inline">
                                             @csrf
                                             @method('delete')
@@ -65,15 +65,15 @@
                                         </form>
                                     @endif
                                 </td>
-                                <td>{{ $item->dahi }}</td>
-                                <td>{{ $item->muka_ka }}</td>
-                                <td>{{ $item->muka_ki }}</td>
-                                <td>{{ $item->dada_ka }}</td>
-                                <td>{{ $item->dada_ki }}</td>
-                                <td>{{ $item->lengan_ka }}</td>
-                                <td>{{ $item->lengan_ki }}</td>
-                                <td>{{ $item->finger_ka }}</td>
-                                <td>{{ $item->finger_ki }}</td>
+                                <td>{{ $item['dahi'] }}</td>
+                                <td>{{ $item['muka_ka'] }}</td>
+                                <td>{{ $item['muka_ki'] }}</td>
+                                <td>{{ $item['dada_ka'] }}</td>
+                                <td>{{ $item['dada_ki'] }}</td>
+                                <td>{{ $item['lengan_ka'] }}</td>
+                                <td>{{ $item['lengan_ki'] }}</td>
+                                <td>{{ $item['finger_ka'] }}</td>
+                                <td>{{ $item['finger_ki'] }}</td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -4,25 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\karyawan;
 use App\Models\KualifikasiGowning;
+use App\Services\KualifikasiGowningService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class KualifikasiGowningController extends Controller
 {
+    private KualifikasiGowningService $kualifikasiGowningService;
+
+    public function __construct(KualifikasiGowningService $kualifikasiGowningService)
+    {
+        $this->kualifikasiGowningService = $kualifikasiGowningService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // $kualifikasiGowning = KualifikasiGowning::with('karyawan')->get();
-        // return view('KualifikasiGowning.index', compact('kualifikasiGowning'));
-        $kualifikasiGowning = KualifikasiGowning::with('karyawan')
-            ->join('karyawans', 'kualifikasi_gownings.nik', '=', 'karyawans.nik') // Gabungkan tabel karyawan
-            ->orderBy('karyawans.departemen') // Urutkan berdasarkan departemen
-            ->orderBy('karyawans.name') // Lalu urutkan berdasarkan name
-            ->select('kualifikasi_gownings.*') // Pilih kolom dari kualifikasi_gownings
-            ->get();
-
+        $kualifikasiGowning = $this->kualifikasiGowningService->getKualifikasiGowning();
         return view('KualifikasiGowning.index', compact('kualifikasiGowning'));
     }
 
@@ -31,12 +31,6 @@ class KualifikasiGowningController extends Controller
      */
     public function create()
     {
-        // // Hanya mengambil karyawan yang memiliki kualifikasiTeori dan belum memiliki kualifikasiGowning
-        // $karyawans = Karyawan::whereHas('kualifikasiTeori') // Hanya karyawan dengan kualifikasi teori
-        //     ->doesntHave('kualifikasiGowning') // Belum memiliki kualifikasi gowning
-        //     ->get();
-        // return view('KualifikasiGowning.create', compact('karyawans'));
-        // Hanya mengambil karyawan yang memiliki kualifikasiTeori dan belum memiliki kualifikasiGowning
         $karyawans = Karyawan::whereHas('kualifikasiTeori') // Belum memiliki kualifikasi gowning
             ->get();
         return view('KualifikasiGowning.create', compact('karyawans'));
@@ -69,7 +63,7 @@ class KualifikasiGowningController extends Controller
             'tanggal_rekualifikasi' => 'nullable|date',
         ]);
 
-        KualifikasiGowning::create($request->all());
+        $this->kualifikasiGowningService->saveKualifikasiGwoning($request->all());
         return redirect()->route('kualifikasiGowning.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
@@ -112,8 +106,7 @@ class KualifikasiGowningController extends Controller
             'tanggal_rekualifikasi' => 'nullable|date',
         ]);
 
-        $kualifikasiGowning = KualifikasiGowning::findOrFail($id);
-        $kualifikasiGowning->update($request->all());
+        $this->kualifikasiGowningService->updateKualifikasiGowning($id, $request->all());
 
         return redirect()->route('kualifikasiGowning.index')->with('success', 'Kualifikasi teori berhasil diupdate.');
     }
@@ -123,9 +116,7 @@ class KualifikasiGowningController extends Controller
      */
     public function destroy($id)
     {
-        $kualifikasiGowning = KualifikasiGowning::findOrFail($id);
-        $kualifikasiGowning->delete();
-
+        $this->kualifikasiGowningService->removeKualifikasiGowning($id);
         return redirect()->route('kualifikasiGowning.index')->with('success', 'Kualifikasi teori berhasil dihapus.');
     }
 

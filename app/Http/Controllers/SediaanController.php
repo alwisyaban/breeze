@@ -3,16 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sediaan;
+use App\Services\SediaanService;
 use Illuminate\Http\Request;
 
 class SediaanController extends Controller
 {
+    private SediaanService $sediaanService;
+
+    public function __construct(SediaanService $sediaanService)
+    {
+        $this->sediaanService = $sediaanService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $sediaans = Sediaan::all();
+        $sediaans = $this->sediaanService->getSediaan();
         return view('sediaan.index', compact('sediaans'));
     }
 
@@ -29,15 +37,11 @@ class SediaanController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required|unique:sediaans'
+        $request->validate([
+            'sediaan' => 'required||unique:sediaans'
         ]);
-
-        $sediaans = new Sediaan();
-        $sediaans->fill($data);
-        $sediaans->save();
+        $this->sediaanService->saveSediaan($request->all());
         session()->flash('success', 'Data berhasil ditambahkan!');
-
         return redirect()->route('sediaan.index');
     }
 
@@ -54,8 +58,8 @@ class SediaanController extends Controller
      */
     public function edit($id)
     {
-        $sediaans = Sediaan::find($id);
-        return view('sediaan.edit', compact('sediaans'));
+        $sediaan = Sediaan::find($id);
+        return view('sediaan.edit', compact('sediaan'));
     }
 
     /**
@@ -63,16 +67,12 @@ class SediaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            'name' => 'required'
+        $request->validate([
+            'sediaan' => 'required||unique:sediaans'
         ]);
 
-        $sediaans = Sediaan::find($id);
-        $sediaans->fill($data);
-        $sediaans->save();
-
-        session()->flash('success', 'Data berhasil di Ubah!');
-
+        $this->sediaanService->updateSediaan($id, $request->only(['sediaan']));
+        session()->flash('success', 'Data berhasil ditambahkan!');
         return redirect()->route('sediaan.index');
     }
 
@@ -81,8 +81,7 @@ class SediaanController extends Controller
      */
     public function destroy($id)
     {
-        $sediaans = Sediaan::find($id);
-        $sediaans->delete();
+        $this->sediaanService->removeSediaan($id);
         session()->flash('success', 'Data berhasil Dihapus!');
         return back();
     }

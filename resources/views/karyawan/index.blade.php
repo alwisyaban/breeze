@@ -27,13 +27,13 @@
                         @foreach ($karyawans as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->nik }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->initial }}</td>
-                                <td>{{ $item->departemen }}</td>
-                                <td><a href="karyawan/{{ $item->id_karyawan }}/edit" class="btn btn-primary btn-sm"><i
+                                <td>{{ $item['nik'] }}</td>
+                                <td>{{ $item['name'] }}</td>
+                                <td>{{ $item['initial'] }}</td>
+                                <td>{{ $item['departemen'] }}</td>
+                                <td><a href="karyawan/{{ $item['id_karyawan'] }}/edit" class="btn btn-primary btn-sm"><i
                                             class="fa-solid fa-pen-to-square"></i></a>
-                                    <form action="/karyawan/{{ $item->id_karyawan }}" method="post" class="d-inline">
+                                    <form action="/karyawan/{{ $item['id_karyawan'] }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger btn-sm ml-2"
