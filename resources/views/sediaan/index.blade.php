@@ -1,19 +1,11 @@
-<<<<<<< HEAD
-@extends('layouts.master', ['title' => 'Data Departemen'])
-=======
 @extends('layouts.master', ['title' => 'Data sediaan'])
->>>>>>> test_01
 
 
 @section('content')
     <div class="container-fluid px-4">
         <div class="card mb-4">
             <div class="card-header">
-<<<<<<< HEAD
-                <a href="sediaan/create" class="btn btn-success"><i class="fa-solid fa-plus"></i> Jenis Sediaan</a>
-=======
                 <a href="sediaan/create" class="btn btn-success"><i class="fa-solid fa-plus"></i> Sediaan</a>
->>>>>>> test_01
             </div>
             <div class="card-body">
                 <!-- id ke datatables -->
@@ -21,11 +13,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-<<<<<<< HEAD
-                            <th>Jenis Sediaan</th>
-=======
                             <th>Sediaan</th>
->>>>>>> test_01
                             <th width=5%><i class="fa-solid fa-gear"></i></th>
                         </tr>
                     </thead>
@@ -33,17 +21,10 @@
                         @foreach ($sediaans as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-<<<<<<< HEAD
-                                <td>{{ $item->name }}</td>
-                                <td><a href="{{ route('sediaan.edit', $item->id) }}" class="btn btn-primary btn-sm"><i
-                                            class="fa-solid fa-pen-to-square"></i></a>
-                                    <form action="/sediaan/{{ $item->id }}" method="post" class="d-inline">
-=======
                                 <td>{{ $item['sediaan'] }}</td>
                                 <td><a href="sediaan/{{ $item['id'] }}/edit" class="btn btn-primary btn-sm"><i
                                             class="fa-solid fa-pen-to-square"></i></a>
                                     <form action="/sediaan/{{ $item['id'] }}" method="post" class="d-inline">
->>>>>>> test_01
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger btn-sm ml-2"

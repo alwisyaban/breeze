@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form action="{{ route('inspeksi.update', $inspeksi->id_inspeksi) }}" method="POST">
+        <form action="{{ route('inspeksi.update', $inspeksi->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="form-group mt-3">
@@ -17,15 +17,22 @@
             <div class="form-group mt-3">
                 <label for="bentuk_sediaan">Bentuk Sediaan</label>
                 <select name="bentuk_sediaan" id="bentuk_sediaan" class="form-control" required>
-                    <option value="">-- Pilih Bentuk Sediaan --</option>
-                    <option value="Vial" {{ $inspeksi->bentuk_sediaan == 'Vial' ? 'selected' : '' }}>Vial</option>
-                    <option value="Ampul" {{ $inspeksi->bentuk_sediaan == 'Ampul' ? 'selected' : '' }}>Ampul</option>
+                    <option value="{{ old('bentuk_sediaan') ?? $inspeksi->bentuk_sediaan }}">
+                        {{ old('bentuk_sediaan') ?? $inspeksi->bentuk_sediaan }}</option>
+                    @foreach ($wadahs as $key => $item)
+                        <option value="{{ $item }}">{{ $item }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group mt-3">
                 <label for="nilai">Jenis Sediaan</label>
-                <input type="text" name="jenis_sediaan" id="jenis_sediaan" class="form-control"
-                    value="{{ $inspeksi->jenis_sediaan }}" required>
+                <select name="jenis_sediaan" id="jenis_sediaan" class="form-control" required>
+                    <option value="{{ old('jenis_sediaan') ?? $inspeksi->jenis_sediaan }}">
+                        {{ old('jenis_sediaan') ?? $inspeksi->jenis_sediaan }}</option>
+                    @foreach ($sediaans as $key => $item)
+                        <option value="{{ $item }}">{{ $item }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group mt-3">
                 <label for="nilai">Nilai</label>

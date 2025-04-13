@@ -17,15 +17,14 @@
                                         Pilih Bentuk Sediaan
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        @foreach ($departments as $department)
+                                        @foreach ($wadahs as $item)
                                             <li>
                                                 <div class="form-check m-3">
-                                                    <input type="checkbox" name="departemen[]"
-                                                        id="departemen_{{ $department }}" value="{{ $department }}"
-                                                        class="form-check-input"
-                                                        {{ in_array($department, $selectedDepartments) ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="departemen_{{ $department }}">
-                                                        {{ $department }}
+                                                    <input type="checkbox" name="wadah[]" id="wadah_{{ $item['wadah'] }}"
+                                                        value="{{ $item['wadah'] }}" class="form-check-input"
+                                                        {{ in_array($item['wadah'], $selectedWadah) ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="wadah_{{ $item['wadah'] }}">
+                                                        {{ $item['wadah'] }}
                                                     </label>
                                                 </div>
                                             </li>
@@ -77,6 +76,7 @@
                         <th>Department</th>
                         <th>Tanggal Rekualifikasi</th>
                         <th>Sediaan</th>
+                        <th>Wadah</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -93,6 +93,7 @@
                                     : '' }}
                             </td>
                             <td>{{ optional($karyawan->KualifikasiInspeksi->first())->jenis_sediaan ?? '' }}</td>
+                            <td>{{ optional($karyawan->KualifikasiInspeksi->first())->bentuk_sediaan ?? '' }}</td>
                         </tr>
                     @empty
                         <tr>

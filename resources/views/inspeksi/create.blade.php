@@ -19,10 +19,11 @@
             </div>
             <div class="form-group mt-3">
                 <label for="bentuk_sediaan">Bentuk Sediaan</label>
-                <select name="bentuk_sediaan" id="bentuk_sediaan" class="form-control" required>
-                    <option value="">-- Pilih Bentuk Sediaan --</option>
-                    <option value="Vial">Vial</option>
-                    <option value="Ampul">Ampul</option>
+                <select name="bentuk_sediaan" id="bentuk_sediaan" class="form-control select2" required>
+                    <option value="">Pilih Sediaan</option>
+                    @foreach ($wadahs as $key => $item)
+                        <option value="{{ $item }}">{{ $item }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group mt-1 mb-3">

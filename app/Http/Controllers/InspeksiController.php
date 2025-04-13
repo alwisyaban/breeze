@@ -6,21 +6,32 @@ use App\Models\Departemen;
 use App\Models\Inspeksi;
 use App\Models\karyawan;
 use App\Models\Sediaan;
+use App\Models\Wadah;
+use App\Services\InspeksiService;
 use Illuminate\Http\Request;
 
 class InspeksiController extends Controller
 {
+    private InspeksiService $inspeksiService;
+
+    public function __construct(InspeksiService $inspeksiService)
+    {
+        $this->inspeksiService = $inspeksiService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $inspeksi = Inspeksi::with('karyawan')
-            ->join('karyawans', 'inspeksis.nik', '=', 'karyawans.nik')
-            ->orderBy('karyawans.departemen') // Urutkan berdasarkan departemen
-            ->orderBy('karyawans.name') // Lalu urutkan berdasarkan name
-            ->select('inspeksis.*') // Pilih kolom dari kualifikasi_gownings
-            ->get();
+        // $inspeksi = Inspeksi::with('karyawan')
+        //     ->join('karyawans', 'inspeksis.nik', '=', 'karyawans.nik')
+        //     ->orderBy('karyawans.departemen') // Urutkan berdasarkan departemen
+        //     ->orderBy('karyawans.name') // Lalu urutkan berdasarkan name
+        //     ->select('inspeksis.*') // Pilih kolom
+        //     ->get();
+
+        $inspeksi = $this->inspeksiService->getInspeksi();
         return view('inspeksi.index', compact('inspeksi'));
     }
 
@@ -30,8 +41,9 @@ class InspeksiController extends Controller
     public function create()
     {
         $karyawans = karyawan::get();
-        $sediaans = Sediaan::all()->pluck('name');
-        return view('inspeksi.create', compact('karyawans', 'sediaans'));
+        $sediaans = Sediaan::all()->pluck('sediaan');
+        $wadahs = Wadah::all()->pluck('wadah');
+        return view('inspeksi.create', compact('karyawans', 'sediaans', 'wadahs'));
     }
 
     /**
@@ -39,7 +51,7 @@ class InspeksiController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $request->validate([
             'nik' => 'required',
             'tanggal_kualifikasi' => 'required|date',
             'bentuk_sediaan' => 'required|string',
@@ -49,9 +61,10 @@ class InspeksiController extends Controller
             'tanggal_rekualifikasi' => 'nullable|date',
         ]);
 
-        $inspeksi = new Inspeksi();
-        $inspeksi->fill($data);
-        $inspeksi->save();
+        // $inspeksi = new Inspeksi();
+        // $inspeksi->fill($data);
+        // $inspeksi->save();
+        $this->inspeksiService->saveInspeksi($request->all());
         return redirect()->route('inspeksi.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
@@ -69,7 +82,9 @@ class InspeksiController extends Controller
     public function edit($id)
     {
         $inspeksi = Inspeksi::find($id);
-        return view('inspeksi.edit', compact('inspeksi'));
+        $sediaans = Sediaan::all()->pluck('sediaan');
+        $wadahs = Wadah::all()->pluck('wadah');
+        return view('inspeksi.edit', compact('inspeksi', 'wadahs', 'sediaans'));
     }
 
     /**
@@ -77,7 +92,7 @@ class InspeksiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->validate([
+        $request->validate([
             'nik' => 'required',
             'tanggal_kualifikasi' => 'required|date',
             'bentuk_sediaan' => 'required|string',
@@ -87,9 +102,10 @@ class InspeksiController extends Controller
             'tanggal_rekualifikasi' => 'nullable|date',
         ]);
 
-        $inspeksi = Inspeksi::find($id);
-        $inspeksi->fill($data);
-        $inspeksi->save();
+        // $inspeksi = Inspeksi::find($id);
+        // $inspeksi->fill($data);
+        // $inspeksi->save();
+        $this->inspeksiService->updateInspeksi($id, $request->all());
 
         session()->flash('success', 'Data berhasil di Ubah!');
 
@@ -101,8 +117,10 @@ class InspeksiController extends Controller
      */
     public function destroy($id)
     {
-        $inspeksi = Inspeksi::findOrFail($id);
-        $inspeksi->delete();
+        // $inspeksi = Inspeksi::findOrFail($id);
+        // $inspeksi->delete();
+
+        $this->inspeksiService->removeInspeksi($id);
         session()->flash('success', 'Data berhasil Dihapus!');
         return back();
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Inspeksi;
 use App\Models\karyawan;
 use App\Models\Sediaan;
+use App\Models\Wadah;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,8 +14,8 @@ class LaporanInspeksiController extends Controller
 {
     public function index(Request $request)
     {
-        // Ambil filter departemen dari request (array)
-        $selectedDepartments = $request->input('bentuk_sediaan', []);
+        // Ambil filter wadah dari request (array)
+        $selectedWadah = $request->input('wadah', []);
         $line = $request->input('line'); // Ambil nilai line dari request, default LINE 02
         // Query utama
         $data = karyawan::with(['KualifikasiInspeksi' => function ($query) {
@@ -24,8 +25,8 @@ class LaporanInspeksiController extends Controller
                 $query->where('hasil', 'QUALIFIED') // Filter hanya yang QUALIFIED pada kualifikasi teori
                     ->whereDate('tanggal_rekualifikasi', '>=', Carbon::today());
             })
-            ->when($selectedDepartments, function ($query) use ($selectedDepartments) {
-                $query->whereIn('bentuk_sediaan', $selectedDepartments); // Filter berdasarkan bentuk sediaan
+            ->when($selectedWadah, function ($query) use ($selectedWadah) {
+                $query->whereIn('bentuk_sediaan', $selectedWadah); // Filter berdasarkan bentuk sediaan
             })
             ->get();
         // ->map(function ($karyawan) {
@@ -47,14 +48,12 @@ class LaporanInspeksiController extends Controller
         // });
 
         // Ambil daftar departemen untuk dropdown filter
-        $departments = Inspeksi::select('bentuk_sediaan')
-            ->orderBy('bentuk_sediaan')
-            ->pluck('bentuk_sediaan');
+        $wadahs = Wadah::query()->get()->toArray();
 
 
 
         // Kirim data ke view
-        return view('laporan.inspeksi.index', compact('data', 'selectedDepartments', 'departments', 'line'));
+        return view('laporan.inspeksi.index', compact('data', 'selectedWadah', 'wadahs', 'line'));
     }
 
     // public function generatePDF(Request $request)

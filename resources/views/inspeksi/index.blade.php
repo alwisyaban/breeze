@@ -51,21 +51,21 @@
                         @foreach ($inspeksi as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->karyawan->nik }}</td>
-                                <td>{{ $item->karyawan->name }}</td>
-                                <td>{{ $item->karyawan->initial }}</td>
-                                <td>{{ $item->karyawan->departemen }}</td>
-                                <td>{{ Carbon\Carbon::parse($item->tanggal_kualifikasi)->format('d M Y') }}</td>
-                                <td>{{ $item->bentuk_sediaan }}</td>
-                                <td>{{ $item->jenis_sediaan }}</td>
-                                <td>{{ $item->nilai }}</td>
-                                <td>{{ $item->hasil }}</td>
-                                <td>{{ Carbon\Carbon::parse($item->tanggal_rekualifikasi)->format('d M Y') }}</td>
+                                <td>{{ $item['karyawan']['nik'] }}</td>
+                                <td>{{ $item['karyawan']['name'] }}</td>
+                                <td>{{ $item['karyawan']['initial'] }}</td>
+                                <td>{{ $item['karyawan']['departemen'] }}</td>
+                                <td>{{ Carbon\Carbon::parse($item['tanggal_kualifikasi'])->format('d M Y') }}</td>
+                                <td>{{ $item['bentuk_sediaan'] }}</td>
+                                <td>{{ $item['jenis_sediaan'] }}</td>
+                                <td>{{ $item['nilai'] }}</td>
+                                <td>{{ $item['hasil'] }}</td>
+                                <td>{{ Carbon\Carbon::parse($item['tanggal_rekualifikasi'])->format('d M Y') }}</td>
                                 <td>
                                     @if (Auth::user()->name == 'admin')
-                                        <a href="{{ route('inspeksi.edit', $item->id) }}" class="btn btn-primary btn-sm"><i
-                                                class="fa-solid fa-pen-to-square"></i></a>
-                                        <form action="{{ route('inspeksi.destroy', $item->id) }}" method="post"
+                                        <a href="{{ route('inspeksi.edit', $item['id']) }}"
+                                            class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <form action="{{ route('inspeksi.destroy', $item['id']) }}" method="post"
                                             class="d-inline">
                                             @csrf
                                             @method('delete')
