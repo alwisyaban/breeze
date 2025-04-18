@@ -81,25 +81,26 @@
                 </thead>
                 <tbody>
                     @forelse ($data as $karyawan)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $karyawan->nik }}</td>
-                            <td>{{ $karyawan->name }}</td>
-                            <td>{{ $karyawan->initial }}</td>
-                            <td>{{ $karyawan->departemen }}</td>
-                            <td>
-                                {{ optional($karyawan->KualifikasiInspeksi->first())->tanggal_rekualifikasi
-                                    ? \Carbon\Carbon::parse(optional($karyawan->KualifikasiInspeksi->first())->tanggal_rekualifikasi)->format('d M Y')
-                                    : '' }}
-                            </td>
-                            <td>{{ optional($karyawan->KualifikasiInspeksi->first())->jenis_sediaan ?? '' }}</td>
-                            <td>{{ optional($karyawan->KualifikasiInspeksi->first())->bentuk_sediaan ?? '' }}</td>
-                        </tr>
+                        @foreach ($karyawan->KualifikasiInspeksi as $inspeksi)
+                            <tr>
+                                <td>{{ $loop->parent->iteration }}</td>
+                                <td>{{ $karyawan->nik }}</td>
+                                <td>{{ $karyawan->name }}</td>
+                                <td>{{ $karyawan->initial }}</td>
+                                <td>{{ $karyawan->departemen }}</td>
+                                <td>
+                                    {{ $inspeksi->tanggal_rekualifikasi ? \Carbon\Carbon::parse($inspeksi->tanggal_rekualifikasi)->format('d M Y') : '' }}
+                                </td>
+                                <td>{{ $inspeksi->jenis_sediaan ?? '' }}</td>
+                                <td>{{ $inspeksi->bentuk_sediaan ?? '' }}</td>
+                            </tr>
+                        @endforeach
                     @empty
                         <tr>
                             <td colspan="10" class="text-center">Tidak ada data untuk ditampilkan.</td>
                         </tr>
                     @endforelse
+
                 </tbody>
             </table>
         </div>

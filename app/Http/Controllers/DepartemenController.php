@@ -69,16 +69,8 @@ class DepartemenController extends Controller
             'departemen' => 'required||unique:departemens'
         ]);
 
-<<<<<<< HEAD
-        $departemens = Departemen::find($id);
-        $departemens->fill($requestData);
-        $departemens->save();
-        session()->flash('success', 'Data berhasil di Ubah!');
-
-=======
         $this->departemenService->updateDepartemen($id, $request->only(['departemen']));
         session()->flash('success', 'Data berhasil ditambahkan!');
->>>>>>> test_01
         return redirect()->route('departemen.index');
     }
 

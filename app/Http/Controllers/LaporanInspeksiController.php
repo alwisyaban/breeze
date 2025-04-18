@@ -14,41 +14,39 @@ class LaporanInspeksiController extends Controller
 {
     public function index(Request $request)
     {
-        // Ambil filter wadah dari request (array)
+        // // Ambil filter wadah dari request (array)
         $selectedWadah = $request->input('wadah', []);
         $line = $request->input('line'); // Ambil nilai line dari request, default LINE 02
-        // Query utama
-        $data = karyawan::with(['KualifikasiInspeksi' => function ($query) {
-            $query->whereIn('bentuk_sediaan', ['vial', 'ampul']);
+        // // Query utama
+        // $data = karyawan::with(['KualifikasiInspeksi' => function ($query) {
+        //     $query->whereIn('bentuk_sediaan', ['vial', 'ampul']);
+        // }])
+        //     ->whereHas('KualifikasiInspeksi', function ($query) {
+        //         $query->where('hasil', 'QUALIFIED') // Filter hanya yang QUALIFIED pada kualifikasi teori
+        //             ->whereDate('tanggal_rekualifikasi', '>=', Carbon::today());
+        //     })
+        //     ->when($selectedWadah, function ($query) use ($selectedWadah) {
+        //         $query->whereIn('bentuk_sediaan', $selectedWadah); // Filter berdasarkan bentuk sediaan
+        //     })
+        //     ->get();
+        $wadahs = Wadah::query()->get()->toArray();
+        $data = Karyawan::with(['KualifikasiInspeksi' => function ($query) use ($selectedWadah) {
+            if (!empty($selectedWadah)) {
+                $query->whereIn('bentuk_sediaan', $selectedWadah);
+            } else {
+                $query->whereIn('bentuk_sediaan', ['vial', 'ampul']);
+            }
         }])
-            ->whereHas('KualifikasiInspeksi', function ($query) {
-                $query->where('hasil', 'QUALIFIED') // Filter hanya yang QUALIFIED pada kualifikasi teori
+            ->whereHas('KualifikasiInspeksi', function ($query) use ($selectedWadah) {
+                $query->where('hasil', 'QUALIFIED')
                     ->whereDate('tanggal_rekualifikasi', '>=', Carbon::today());
-            })
-            ->when($selectedWadah, function ($query) use ($selectedWadah) {
-                $query->whereIn('bentuk_sediaan', $selectedWadah); // Filter berdasarkan bentuk sediaan
+
+                if (!empty($selectedWadah)) {
+                    $query->whereIn('bentuk_sediaan', $selectedWadah);
+                }
             })
             ->get();
-        // ->map(function ($karyawan) {
-        //     // Modifikasi data untuk bentuk_sediaan 'vial'
-        //     $karyawan->KualifikasiInspeksi->map(function ($kualifikasi) {
-        //         if (
-        //             $kualifikasi->jenis_sediaa_sediaan == $selectedDepartments &&
-        //             Carbon::parse($kualifikasi->tanggal_rekualifikasi)->lt(Carbon::today())
-        //         ) {
-        //             $kualifikasi->tanggal_rekualifikasi = ' ';
-        //             $kualifikasi->hasil = 'NOT QUALIFIED';
-        //         } else {
-        //             // Format tanggal menjadi 29 Jan 2025
-        //             $kualifikasi->tanggal_rekualifikasi = Carbon::parse($kualifikasi->tanggal_rekualifikasi)->format('d M Y');
-        //         }
-        //         return $kualifikasi;
-        //     });
-        //     return $karyawan;
-        // });
 
-        // Ambil daftar departemen untuk dropdown filter
-        $wadahs = Wadah::query()->get()->toArray();
 
 
 

@@ -8,6 +8,7 @@ use App\Models\karyawan;
 use App\Models\KualifikasiGowning;
 use App\Models\KualifikasiTeori;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -70,6 +71,69 @@ class DashboardGowningController extends Controller
                 return $karyawan;
             });
 
+        // data no dokumen pendukung BN IKTRB50839
+        // $tgl_cb = Carbon::parse('2025-04-10 16:16:00');
+        // $tgl_terima = Carbon::parse('2025-04-10 18:20:00');
+        // $tgl_sfc = Carbon::parse('2025-04-10 18:20:00');
+        // $tgl_efc = Carbon::parse('2025-04-10 19:10:00');
+        // $tgl_ssc = Carbon::parse('2025-04-10 19:10:00');
+        // $tgl_esc = Carbon::parse('2025-04-10 20:00:00');
+        // $tgl_slws = Carbon::parse('2025-04-11 08:49:00');
+        // $tgl_elws = Carbon::parse('2025-04-11 08:53:00');
+        // $tgl_release = Carbon::parse('2025-04-11 08:54:00');
+        // $tgl_dok_pendukung = null;
+        // $pengembalian = null;
+        // $off_time = 0;
+
+        // data dengan dokumen pendukung VPALA50119
+        $tgl_cb = Carbon::parse('2025-03-13 22:49:00');
+        $tgl_terima = Carbon::parse('2025-03-14 22:00:00');
+        $tgl_sfc = Carbon::parse('2025-03-14 22:00:00');
+        $tgl_efc = Carbon::parse('2025-03-14 22:50:00');
+        $tgl_ssc = Carbon::parse('2025-03-15 07:00:00');
+        $tgl_esc = Carbon::parse('2025-03-15 07:53:00');
+        $tgl_slws = Carbon::parse('2025-03-19 16:50:00');
+        $tgl_elws = Carbon::parse('2025-03-19 16:58:00');
+        $tgl_release = Carbon::parse('2025-04-8 18:03:00');
+
+        $tgl_dok_pendukung = '2025-04-8 18:00:00';
+        $pengembalian = null;
+        $off_time = 480;
+
+        $A1 = $tgl_terima->diffInMinutes($tgl_sfc);
+        $A2 = $tgl_sfc->diffInMinutes($tgl_efc);
+        $A = $A1 + $A2;
+
+        $B1 = $tgl_efc->diffInMinutes($tgl_ssc); // dikurangi off_time nanti
+        $B2 = $tgl_ssc->diffInMinutes($tgl_esc);
+        $B = ($B1 - $off_time) + $B2;
+
+        $C1 = $tgl_slws->diffInMinutes($tgl_slws); // hasil 0
+        $C2 = $tgl_slws->diffInMinutes($tgl_elws);
+        $C = $C1 + $C2;
+
+        $D1 = 0;
+        $D2 = 0;
+
+        if ($tgl_terima > $tgl_slws && $tgl_dok_pendukung == null || $tgl_terima > $tgl_dok_pendukung || $pengembalian = null) {
+            if ($tgl_elws > $tgl_esc) {
+                $D1 = $tgl_elws->diffInMinutes($tgl_release);
+            } else {
+                $D1 = $tgl_esc->diffInMinutes($tgl_release);
+            }
+        } elseif ($tgl_dok_pendukung > 0 || $tgl_dok_pendukung > $tgl_terima || $tgl_dok_pendukung > $tgl_slws && $pengembalian = null || $tgl_dok_pendukung > $pengembalian || $pengembalian = null || $tgl_dok_pendukung > $pengembalian) {
+            $D2 = Carbon::parse($tgl_dok_pendukung)->diffInMinutes($tgl_release);
+        }
+
+
+        $D = $D1 + $D2;
+
+        $J = $A + $B + $C + $D;
+        $jam = floor($J / 60);
+        $menit = $J % 60;
+
+        $minus = $A . "|" . $B . "|" . $C . "|" . $D . "|" . $jam . " Jam " . $menit . " menit";
+
         return view('dashboard.gowning.index', compact(
             'teori',
             'steril',
@@ -79,7 +143,8 @@ class DashboardGowningController extends Controller
             'startDate',
             'endDate',
             'startMonth',
-            'endMonth'
+            'endMonth',
+            'minus'
         ));
     }
 

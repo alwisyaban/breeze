@@ -51,7 +51,17 @@
                         <i class="fas fa-chart-area me-1"></i>
                         {{ $hari }}
                     </div>
-                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                    <div class="card-body">
+                        <h1>{{ $minus }}</h1>
+                        <div>
+                            <div class="mb-3">
+                                <label for="waktu_selesai" class="form-label">Waktu Selesai:</label>
+                                <input type="datetime-local" id="waktu_selesai" name="waktu_selesai" class="form-control"
+                                    required>
+                            </div>
+                        </div>
+                        <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                    </div>
                 </div>
             </div>
             <div class="col-xl-6">
