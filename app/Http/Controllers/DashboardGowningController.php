@@ -96,43 +96,94 @@ class DashboardGowningController extends Controller
         $tgl_elws = Carbon::parse('2025-03-19 16:58:00');
         $tgl_release = Carbon::parse('2025-04-8 18:03:00');
 
-        $tgl_dok_pendukung = '2025-04-8 18:00:00';
-        $pengembalian = null;
-        $off_time = 480;
+        // test
 
-        $A1 = $tgl_terima->diffInMinutes($tgl_sfc);
-        $A2 = $tgl_sfc->diffInMinutes($tgl_efc);
+        $close_batch = Carbon::parse('2025-04-14 14:44:00');
+        $terima_dok = Carbon::parse('2025-04-14 20:40:00');
+        $start_fc = Carbon::parse('2025-04-14 20:40:00');
+        $end_fc = Carbon::parse('2025-04-14 21:34:00');
+        $start_sc = Carbon::parse('2025-04-14 21:35:00');
+        $end_sc = Carbon::parse('2025-04-14 22:21:00');
+        $start_lws = Carbon::parse('2025-04-08 20:30:00');
+        $end_lws = Carbon::parse('2025-04-08 20:40:00');
+        $release = Carbon::parse('2025-04-14 22:23:00');
+        $pengembalian = null;
+        $dok_pendukung = null;
+        $off_time = 3;
+
+        $A1 = $terima_dok->diffInMinutes($start_fc);
+        $A2 = $start_fc->diffInMinutes($end_fc);
         $A = $A1 + $A2;
 
-        $B1 = $tgl_efc->diffInMinutes($tgl_ssc); // dikurangi off_time nanti
-        $B2 = $tgl_ssc->diffInMinutes($tgl_esc);
+        $B1 = $end_fc->diffInMinutes($start_sc);
+        $B2 = $start_sc->diffInMinutes($end_sc);
         $B = ($B1 - $off_time) + $B2;
 
-        $C1 = $tgl_slws->diffInMinutes($tgl_slws); // hasil 0
-        $C2 = $tgl_slws->diffInMinutes($tgl_elws);
+        $C1 = $start_lws->diffInMinutes($start_lws);
+        $C2 = $start_lws->diffInMinutes($end_lws);
         $C = $C1 + $C2;
 
         $D1 = 0;
         $D2 = 0;
 
-        if ($tgl_terima > $tgl_slws && $tgl_dok_pendukung == null || $tgl_terima > $tgl_dok_pendukung || $pengembalian = null) {
-            if ($tgl_elws > $tgl_esc) {
-                $D1 = $tgl_elws->diffInMinutes($tgl_release);
+        if ($terima_dok > $start_lws && $dok_pendukung == null || $terima_dok > $dok_pendukung || $pengembalian == null) {
+            if ($end_lws > $end_sc) {
+                $D1 = $end_lws->diffInMinutes($release);
             } else {
-                $D1 = $tgl_esc->diffInMinutes($tgl_release);
+                $D1 = $end_sc->diffInMinutes($release);
             }
-        } elseif ($tgl_dok_pendukung > 0 || $tgl_dok_pendukung > $tgl_terima || $tgl_dok_pendukung > $tgl_slws && $pengembalian = null || $tgl_dok_pendukung > $pengembalian || $pengembalian = null || $tgl_dok_pendukung > $pengembalian) {
-            $D2 = Carbon::parse($tgl_dok_pendukung)->diffInMinutes($tgl_release);
+        } elseif ($dok_pendukung != null || $dok_pendukung > $terima_dok || $dok_pendukung > $start_lws && $pengembalian = null || $dok_pendukung > $pengembalian) {
+            $D2 = Carbon::parse($dok_pendukung)->diffInMinutes($release);
         }
 
-
         $D = $D1 + $D2;
-
         $J = $A + $B + $C + $D;
         $jam = floor($J / 60);
         $menit = $J % 60;
-
+        $result = $jam . ":" . $menit;
         $minus = $A . "|" . $B . "|" . $C . "|" . $D . "|" . $jam . " Jam " . $menit . " menit";
+
+        // end
+
+        // $tgl_dok_pendukung = '2025-04-8 18:00:00';
+        // $pengembalian = null;
+        // $off_time = 480;
+
+        // $A1 = $tgl_terima->diffInMinutes($tgl_sfc);
+        // $A2 = $tgl_sfc->diffInMinutes($tgl_efc);
+        // $A = $A1 + $A2;
+
+        // $B1 = $tgl_efc->diffInMinutes($tgl_ssc); // dikurangi off_time nanti
+        // $B2 = $tgl_ssc->diffInMinutes($tgl_esc);
+        // $B = ($B1 - $off_time) + $B2;
+
+        // $C1 = $tgl_slws->diffInMinutes($tgl_slws); // hasil 0
+        // $C2 = $tgl_slws->diffInMinutes($tgl_elws);
+        // $C = $C1 + $C2;
+
+        // $D1 = 0;
+        // $D2 = 0;
+
+        // if ($tgl_terima > $tgl_slws && $tgl_dok_pendukung == null || $tgl_terima > $tgl_dok_pendukung || $pengembalian = null) {
+        //     if ($tgl_elws > $tgl_esc) {
+        //         $D1 = $tgl_elws->diffInMinutes($tgl_release);
+        //     } else {
+        //         $D1 = $tgl_esc->diffInMinutes($tgl_release);
+        //     }
+        // } elseif ($tgl_dok_pendukung > 0 || $tgl_dok_pendukung > $tgl_terima || $tgl_dok_pendukung > $tgl_slws && $pengembalian = null || $tgl_dok_pendukung > $pengembalian || $pengembalian = null || $tgl_dok_pendukung > $pengembalian) {
+        //     $D2 = Carbon::parse($tgl_dok_pendukung)->diffInMinutes($tgl_release);
+        // }
+
+
+        // $D = $D1 + $D2;
+
+        // $J = $A + $B + $C + $D;
+        // $jam = floor($J / 60);
+        // $menit = $J % 60;
+
+        // $minus = $A . "|" . $B . "|" . $C . "|" . $D . "|" . $jam . " Jam " . $menit . " menit";
+
+
 
         return view('dashboard.gowning.index', compact(
             'teori',
