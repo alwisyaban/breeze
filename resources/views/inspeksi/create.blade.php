@@ -18,6 +18,18 @@
                 <input type="date" name="tanggal_kualifikasi" id="tanggal_kualifikasi" class="form-control" required>
             </div>
             <div class="form-group mt-3">
+                <label for="nomer">ID</label>
+                <input type="number" name="nomer" id="nomer" class="form-control" required>
+            </div>
+            <div class="form-group mt-3">
+                <label for="kualifikasi">Kualifikasi Ke-</label>
+                <select name="kualifikasi" id="kualifikasi" class="form-control" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <div class="form-group mt-3">
                 <label for="bentuk_sediaan">Bentuk Sediaan</label>
                 <select name="bentuk_sediaan" id="bentuk_sediaan" class="form-control select2" required>
                     <option value="">Pilih Sediaan</option>
@@ -41,6 +53,18 @@
             <div class="form-group mt-3">
                 <label for="nilai">Nilai</label>
                 <input type="number" name="nilai" id="nilai" class="form-control" required>
+            </div>
+            <div class="form-group mt-3">
+                <label for="salah">Salah</label>
+                <input type="number" name="salah" id="salah" class="form-control" required>
+            </div>
+            <div class="form-group mt-3">
+                <label for="false_reject">False Reject</label>
+                <input type="number" name="false_reject" id="false_reject" class="form-control" required>
+            </div>
+            <div class="form-group mt-3">
+                <label for="keterangan">Keterangan</label>
+                <input type="text" name="keterangan" id="keterangan" class="form-control" required>
             </div>
             <div class="form-group mt-3">
                 <label for="hasil">Hasil</label>

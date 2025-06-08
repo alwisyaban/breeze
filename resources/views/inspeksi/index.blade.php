@@ -37,13 +37,18 @@
                             <th>NIK</th>
                             <th>Nama</th>
                             <th>Initial</th>
-                            <th>Departemen</th>
+                            {{-- <th>Departemen</th> --}}
                             <th>Tanggal Kualifikasi</th>
+                            <th>Id</th>
+                            <th>Kualifikasi Ke-</th>
                             <th>Bentuk Sediaan</th>
                             <th>Jenis Sediaan</th>
                             <th>Nilai</th>
-                            <th>Hasil</th>
-                            <th>Tanggal Rekualifikasi</th>
+                            <th>Salah</th>
+                            <th>False Reject</th>
+                            <th>Keterangan</th>
+                            {{-- <th>Hasil</th> --}}
+                            {{-- <th>Tanggal Rekualifikasi</th> --}}
                             <th width=5%><i class="fa-solid fa-gear"></i></th>
                         </tr>
                     </thead>
@@ -54,17 +59,22 @@
                                 <td>{{ $item['karyawan']['nik'] }}</td>
                                 <td>{{ $item['karyawan']['name'] }}</td>
                                 <td>{{ $item['karyawan']['initial'] }}</td>
-                                <td>{{ $item['karyawan']['departemen'] }}</td>
+                                {{-- <td>{{ $item['karyawan']['departemen'] }}</td> --}}
                                 <td>{{ Carbon\Carbon::parse($item['tanggal_kualifikasi'])->format('d M Y') }}</td>
+                                <td>{{ $item['nomer'] }}</td>
+                                <td>{{ $item['kualifikasi'] }}</td>
                                 <td>{{ $item['bentuk_sediaan'] }}</td>
                                 <td>{{ $item['jenis_sediaan'] }}</td>
                                 <td>{{ $item['nilai'] }}</td>
-                                <td>{{ $item['hasil'] }}</td>
-                                <td>{{ Carbon\Carbon::parse($item['tanggal_rekualifikasi'])->format('d M Y') }}</td>
+                                <td>{{ $item['salah'] }}</td>
+                                <td>{{ $item['false_reject'] }}</td>
+                                <td>{{ $item['keterangan'] }}</td>
+                                {{-- <td>{{ $item['hasil'] }}</td> --}}
+                                {{-- <td>{{ Carbon\Carbon::parse($item['tanggal_rekualifikasi'])->format('d M Y') }}</td> --}}
                                 <td>
                                     @if (Auth::user()->name == 'admin')
-                                        <a href="{{ route('inspeksi.edit', $item['id']) }}"
-                                            class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        {{-- <a href="{{ route('inspeksi.edit', $item['id']) }}"
+                                            class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a> --}}
                                         <form action="{{ route('inspeksi.destroy', $item['id']) }}" method="post"
                                             class="d-inline">
                                             @csrf

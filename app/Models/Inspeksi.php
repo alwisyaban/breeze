@@ -11,9 +11,14 @@ class Inspeksi extends Model
     protected $fillable = [
         'nik',
         'tanggal_kualifikasi',
+        'nomer',
+        'kualifikasi',
         'bentuk_sediaan',
         'jenis_sediaan',
         'nilai',
+        'salah',
+        'false_reject',
+        'keterangan',
         'hasil',
         'tanggal_rekualifikasi'
     ];

@@ -12,9 +12,14 @@ class InspeksiServiceImpl implements InspeksiService
         Inspeksi::create([
             'nik' => $data['nik'],
             'tanggal_kualifikasi' => $data['tanggal_kualifikasi'],
+            'nomer' => $data['nomer'],
+            'kualifikasi' => $data['kualifikasi'],
             'bentuk_sediaan' => $data['bentuk_sediaan'],
             'jenis_sediaan' => $data['jenis_sediaan'],
             'nilai' => $data['nilai'],
+            'salah' => $data['salah'],
+            'false_reject' => $data['false_reject'],
+            'keterangan' => $data['keterangan'],
             'hasil' => $data['hasil'],
             'tanggal_rekualifikasi' => $data['tanggal_rekualifikasi'],
         ]);
@@ -26,6 +31,9 @@ class InspeksiServiceImpl implements InspeksiService
             ->join('karyawans', 'inspeksis.nik', '=', 'karyawans.nik')
             ->orderBy('karyawans.departemen') // Urutkan berdasarkan departemen
             ->orderBy('karyawans.name') // Lalu urutkan berdasarkan name
+            ->orderBy('inspeksis.nomer') // Lalu urutkan berdasarkan nomer
+            ->orderBy('inspeksis.kualifikasi') // Lalu urutkan berdasarkan kualifikasi
+            ->orderBy('inspeksis.jenis_sediaan') // Lalu urutkan berdasarkan kualifikasi
             ->select('inspeksis.*') // Pilih kolom
             ->get()->toArray();
 

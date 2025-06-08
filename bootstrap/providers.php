@@ -3,6 +3,7 @@
 return [
     App\Providers\AppServiceProvider::class,
     App\Providers\DepartemenProvider::class,
+    App\Providers\InspeksiMonitoringProvider::class,
     App\Providers\InspeksiProvider::class,
     App\Providers\KaryawanProvider::class,
     App\Providers\KualifikasiGowningProvider::class,

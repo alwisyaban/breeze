@@ -15,9 +15,14 @@ return new class extends Migration
             $table->id();
             $table->integer('nik');
             $table->date('tanggal_kualifikasi');
+            $table->integer('nomer');
+            $table->string('kualifikasi');
             $table->string('bentuk_sediaan');
             $table->string('jenis_sediaan');
             $table->integer('nilai');
+            $table->integer('salah');
+            $table->integer('false_reject');
+            $table->string('keterangan');
             $table->string('hasil');
             $table->date('tanggal_rekualifikasi');
             $table->timestamps();
