@@ -38,7 +38,7 @@ class SediaanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'sediaan' => 'required||unique:sediaans'
+            'sediaan' => 'required'
         ]);
         $this->sediaanService->saveSediaan($request->all());
         session()->flash('success', 'Data berhasil ditambahkan!');
