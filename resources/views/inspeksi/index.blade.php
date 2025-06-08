@@ -9,7 +9,7 @@
                     <a href="{{ route('inspeksi.create') }}" class="btn btn-success"><i class="fa-solid fa-plus"></i>
                         Kualifikasi Kejernihan</a>
                 @endif
-                <div class="">
+                {{-- <div class="">
                     <form method="GET" action="#" class="mb-3 mt-3">
                         <div class="row">
                             <div class="col-md-4">
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> --}}
             </div>
             <div class="card-body">
                 <!-- id ke datatables -->
