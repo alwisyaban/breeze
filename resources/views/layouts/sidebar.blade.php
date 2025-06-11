@@ -35,7 +35,7 @@
                     </nav>
                 </div>
                 {{-- new --}}
-                @if (Auth::user()->name == 'admin')
+                @if (Auth::user()->name == 'admin' || Auth::user()->name == 'GOF')
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                         data-bs-target="#collapseInspeksi" aria-expanded="false" aria-controls="collapseInspeksi">
                         <div class="sb-nav-link-icon">
