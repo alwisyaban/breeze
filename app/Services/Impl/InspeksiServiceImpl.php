@@ -31,9 +31,10 @@ class InspeksiServiceImpl implements InspeksiService
             ->join('karyawans', 'inspeksis.nik', '=', 'karyawans.nik')
             ->orderBy('karyawans.departemen') // Urutkan berdasarkan departemen
             ->orderBy('karyawans.name') // Lalu urutkan berdasarkan name
+            ->orderBy('inspeksis.jenis_sediaan') // Lalu urutkan berdasarkan jenis sediaan
             ->orderBy('inspeksis.nomer') // Lalu urutkan berdasarkan nomer
             ->orderBy('inspeksis.kualifikasi') // Lalu urutkan berdasarkan kualifikasi
-            ->orderBy('inspeksis.jenis_sediaan') // Lalu urutkan berdasarkan kualifikasi
+
             ->select('inspeksis.*') // Pilih kolom
             ->get()->toArray();
 

@@ -51,9 +51,9 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{ route('inspeksi.index') }}"> <i
                                     class="fa-regular fa-clipboard"></i>&nbsp List Karyawan</a>
-                            <a class="nav-link" href="{{ route('inspeksi-laporan.index') }}"><i
+                            {{-- <a class="nav-link" href="{{ route('inspeksi-laporan.index') }}"><i
                                     class="fa-solid fa-file"></i>&nbsp Laporan
-                                Kejernihan</a>
+                                Kejernihan</a> --}}
                         </nav>
                     </div>
                 @endif

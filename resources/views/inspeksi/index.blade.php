@@ -34,7 +34,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>NIK</th>
+                            {{-- <th>NIK</th> --}}
                             <th>Nama</th>
                             <th>Initial</th>
                             {{-- <th>Departemen</th> --}}
@@ -47,7 +47,7 @@
                             <th>Salah</th>
                             <th>False Reject</th>
                             <th>Keterangan</th>
-                            {{-- <th>Hasil</th> --}}
+                            <th>Hasil</th>
                             {{-- <th>Tanggal Rekualifikasi</th> --}}
                             <th width=5%><i class="fa-solid fa-gear"></i></th>
                         </tr>
@@ -56,7 +56,7 @@
                         @foreach ($inspeksi as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item['karyawan']['nik'] }}</td>
+                                {{-- <td>{{ $item['karyawan']['nik'] }}</td> --}}
                                 <td>{{ $item['karyawan']['name'] }}</td>
                                 <td>{{ $item['karyawan']['initial'] }}</td>
                                 {{-- <td>{{ $item['karyawan']['departemen'] }}</td> --}}
@@ -69,7 +69,7 @@
                                 <td>{{ $item['salah'] }}</td>
                                 <td>{{ $item['false_reject'] }}</td>
                                 <td>{{ $item['keterangan'] }}</td>
-                                {{-- <td>{{ $item['hasil'] }}</td> --}}
+                                <td>{{ $item['hasil'] }}</td>
                                 {{-- <td>{{ Carbon\Carbon::parse($item['tanggal_rekualifikasi'])->format('d M Y') }}</td> --}}
                                 <td>
                                     @if (Auth::user()->name == 'admin')
